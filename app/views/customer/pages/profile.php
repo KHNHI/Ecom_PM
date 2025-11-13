@@ -223,6 +223,306 @@
             background: #dc3545;
             color: white;
         }
+        
+        /* Orders Management Styles */
+        .orders-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        
+        .order-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            padding: 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        }
+        
+        .order-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 20px rgba(212, 175, 55, 0.15);
+        }
+        
+        .order-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 20px;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+        }
+        
+        .order-id-date {
+            flex: 1;
+        }
+        
+        .order-id {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 5px;
+        }
+        
+        .order-id strong {
+            color: var(--gold);
+            font-weight: 600;
+        }
+        
+        .order-date {
+            font-size: 0.85rem;
+            color: #999;
+        }
+        
+        .order-status-badge {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .order-status-badge.pending {
+            background: rgba(255, 193, 7, 0.2);
+            color: #FFC107;
+        }
+        
+        .order-status-badge.paid {
+            background: rgba(76, 175, 80, 0.2);
+            color: #4CAF50;
+        }
+        
+        .order-status-badge.shipped {
+            background: rgba(33, 150, 243, 0.2);
+            color: #2196F3;
+        }
+        
+        .order-status-badge.delivered {
+            background: rgba(76, 175, 80, 0.2);
+            color: #4CAF50;
+        }
+        
+        .order-status-badge.cancelled {
+            background: rgba(244, 67, 54, 0.2);
+            color: #F44336;
+        }
+        
+        .order-items-list {
+            margin-bottom: 15px;
+        }
+        
+        .order-item {
+            display: flex;
+            gap: 12px;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.05);
+        }
+        
+        .order-item:last-child {
+            border-bottom: none;
+        }
+        
+        .order-item-image {
+            width: 60px;
+            height: 60px;
+            border-radius: 8px;
+            object-fit: cover;
+            background: var(--light-gray);
+        }
+        
+        .order-item-details {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .order-item-name {
+            font-weight: 500;
+            color: var(--dark-brown);
+            margin-bottom: 3px;
+            font-size: 0.95rem;
+        }
+        
+        .order-item-meta {
+            font-size: 0.8rem;
+            color: #999;
+        }
+        
+        .order-item-price {
+            text-align: right;
+            font-weight: 600;
+            color: var(--gold);
+        }
+        
+        .order-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 15px;
+            border-top: 1px solid rgba(212, 175, 55, 0.1);
+        }
+        
+        .order-total {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+        
+        .order-total-label {
+            font-size: 0.85rem;
+            color: #666;
+            margin-bottom: 3px;
+        }
+        
+        .order-total-amount {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--gold);
+        }
+        
+        .order-actions {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        
+        .btn-action {
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .btn-cancel-order {
+            background: rgba(244, 67, 54, 0.1);
+            color: #F44336;
+            border: 1px solid #F44336;
+        }
+        
+        .btn-cancel-order:hover {
+            background: #F44336;
+            color: white;
+        }
+        
+        .btn-view-detail {
+            background: var(--gold);
+            color: white;
+            border: 1px solid var(--gold);
+        }
+        
+        .btn-view-detail:hover {
+            background: var(--dark-gold);
+            border-color: var(--dark-gold);
+        }
+        
+        .btn-review {
+            background: rgba(76, 175, 80, 0.1);
+            color: #4CAF50;
+            border: 1px solid #4CAF50;
+        }
+        
+        .btn-review:hover {
+            background: #4CAF50;
+            color: white;
+        }
+        
+        .empty-orders {
+            text-align: center;
+            padding: 40px 20px;
+        }
+        
+        .empty-orders i {
+            font-size: 3rem;
+            color: #ccc;
+            margin-bottom: 15px;
+        }
+        
+        .empty-orders h6 {
+            color: #666;
+            margin-bottom: 10px;
+        }
+        
+        .empty-orders p {
+            color: #999;
+            margin-bottom: 20px;
+        }
+        
+        /* Filter buttons */
+        .orders-list + .text-center button.btn-outline-primary,
+        [data-filter] {
+            transition: all 0.3s ease;
+        }
+        
+        [data-filter].active {
+            background: var(--gold);
+            color: white;
+            border-color: var(--gold);
+        }
+        
+        /* Rating Input Styles */
+        .rating-input {
+            display: flex;
+            flex-direction: row-reverse;
+            justify-content: flex-end;
+            gap: 8px;
+        }
+        
+        .rating-input input[type="radio"] {
+            display: none;
+        }
+        
+        .rating-input label {
+            color: #ddd;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .rating-input label:hover,
+        .rating-input label:hover ~ label,
+        .rating-input input[type="radio"]:checked ~ label {
+            color: #ffc107;
+        }
+        
+        .rating-input label:hover {
+            transform: scale(1.1);
+        }
+        
+        /* Review Modal Styles */
+        #reviewModal .modal-content {
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 15px;
+        }
+        
+        #reviewModal .modal-header {
+            border-bottom: 2px solid rgba(212, 175, 55, 0.1);
+            background: rgba(248, 246, 240, 0.5);
+        }
+        
+        #reviewModal .nav-tabs .nav-link {
+            color: var(--dark-brown);
+            border: none;
+            border-bottom: 2px solid transparent;
+        }
+        
+        #reviewModal .nav-tabs .nav-link:hover {
+            border-bottom-color: var(--gold);
+            color: var(--gold);
+        }
+        
+        #reviewModal .nav-tabs .nav-link.active {
+            border-bottom-color: var(--gold);
+            color: var(--gold);
+            background: none;
+        }
     </style>
 </head>
 <body class="bg-light">
@@ -439,14 +739,37 @@
                                 Đơn hàng của tôi
                             </h5>
                             
-                            <div class="text-center py-5">
-                                <i class="fas fa-shopping-bag fa-3x text-muted mb-3"></i>
-                                <h6 class="text-muted">Bạn chưa có đơn hàng nào</h6>
-                                <p class="text-muted">Hãy bắt đầu mua sắm để xem đơn hàng tại đây</p>
-                                <a href="/Ecom_website/products" class="btn btn-primary">
-                                    <i class="fas fa-shopping-cart me-2"></i>
-                                    Mua sắm ngay
-                                </a>
+                            <!-- Alert Container -->
+                            <div id="ordersAlertContainer"></div>
+                            
+                            <!-- Filter & Sort Buttons -->
+                            <div class="mb-4 d-flex gap-2 flex-wrap">
+                                <button class="btn btn-sm btn-outline-primary active" data-filter="all">
+                                    <i class="fas fa-list me-1"></i>Tất cả
+                                </button>
+                                <button class="btn btn-sm btn-outline-primary" data-filter="pending">
+                                    <i class="fas fa-clock me-1"></i>Chờ xác nhận
+                                </button>
+                                <button class="btn btn-sm btn-outline-primary" data-filter="paid">
+                                    <i class="fas fa-check-circle me-1"></i>Đã thanh toán
+                                </button>
+                                <button class="btn btn-sm btn-outline-primary" data-filter="shipped">
+                                    <i class="fas fa-truck me-1"></i>Đang giao
+                                </button>
+                                <button class="btn btn-sm btn-outline-primary" data-filter="delivered">
+                                    <i class="fas fa-box-open me-1"></i>Đã giao
+                                </button>
+                                <button class="btn btn-sm btn-outline-danger" data-filter="cancelled">
+                                    <i class="fas fa-times-circle me-1"></i>Hủy
+                                </button>
+                            </div>
+                            
+                            <!-- Orders Container -->
+                            <div id="ordersContainer" class="orders-list">
+                                <div class="text-center py-5">
+                                    <i class="fas fa-spinner fa-spin fa-2x text-primary mb-3"></i>
+                                    <p class="text-muted">Đang tải đơn hàng...</p>
+                                </div>
                             </div>
                         </div>
                         
@@ -955,6 +1278,521 @@
             } catch (error) {
                 console.error('Error loading wards:', error);
             }
+        }
+    </script>
+    
+    <!-- Orders Management Script -->
+    <script>
+        // Store orders data globally
+        let allOrders = [];
+        let currentFilter = 'all';
+        
+        // Load orders when tab is shown
+        document.getElementById('orders-tab').addEventListener('shown.bs.tab', function() {
+            loadOrders();
+        });
+        
+        // Load orders from server
+        async function loadOrders() {
+            const container = document.getElementById('ordersContainer');
+            
+            try {
+                const response = await fetch('/Ecom_website/api/orders/list', {
+                    method: 'GET',
+                    credentials: 'same-origin',
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}`);
+                }
+                
+                const result = await response.json();
+                
+                if (result.success && result.data) {
+                    allOrders = result.data;
+                    displayOrders(allOrders);
+                } else {
+                    showEmptyOrders(container);
+                }
+                
+            } catch (error) {
+                console.error('Error loading orders:', error);
+                container.innerHTML = `
+                    <div class="alert alert-danger" role="alert">
+                        <i class="fas fa-exclamation-circle me-2"></i>
+                        Không thể tải danh sách đơn hàng. Vui lòng thử lại.
+                    </div>
+                `;
+            }
+        }
+        
+        // Display orders
+        function displayOrders(orders) {
+            const container = document.getElementById('ordersContainer');
+            
+            if (!orders || orders.length === 0) {
+                showEmptyOrders(container);
+                return;
+            }
+            
+            let html = '<div class="orders-list">';
+            
+            orders.forEach(order => {
+                const statusClass = getStatusClass(order.order_status);
+                const statusText = getStatusText(order.order_status);
+                const orderDate = new Date(order.created_at).toLocaleDateString('vi-VN');
+                
+                html += `
+                    <div class="order-card" data-order-id="${order.order_id}" data-status="${order.order_status}">
+                        <div class="order-header">
+                            <div class="order-id-date">
+                                <div class="order-id">
+                                    Đơn hàng <strong>#${order.order_id}</strong>
+                                </div>
+                                <div class="order-date">
+                                    <i class="fas fa-calendar me-1"></i>${orderDate}
+                                </div>
+                            </div>
+                            <span class="order-status-badge ${statusClass}">
+                                ${statusText}
+                            </span>
+                        </div>
+                        
+                        <div class="order-items-list">
+                            ${renderOrderItems(order.items)}
+                        </div>
+                        
+                        <div class="order-footer">
+                            <div class="order-actions">
+                                ${getOrderActions(order)}
+                            </div>
+                            <div class="order-total">
+                                <div class="order-total-label">Tổng cộng:</div>
+                                <div class="order-total-amount">
+                                    ${formatPrice(order.total_amount)}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            html += '</div>';
+            container.innerHTML = html;
+            attachOrderEventListeners();
+        }
+        
+        // Show empty orders message
+        function showEmptyOrders(container) {
+            container.innerHTML = `
+                <div class="empty-orders">
+                    <i class="fas fa-shopping-bag"></i>
+                    <h6>Bạn chưa có đơn hàng nào</h6>
+                    <p>Hãy bắt đầu mua sắm để xem đơn hàng tại đây</p>
+                    <a href="/Ecom_website/products" class="btn btn-primary">
+                        <i class="fas fa-shopping-cart me-2"></i>
+                        Mua sắm ngay
+                    </a>
+                </div>
+            `;
+        }
+        
+        // Render order items
+        function renderOrderItems(items) {
+            if (!items || items.length === 0) {
+                return '<div class="text-muted text-center py-2">Không có sản phẩm</div>';
+            }
+            
+            return items.map(item => `
+                <div class="order-item">
+                    <img src="${item.product_image || '/Ecom_website/public/uploads/products/placeholder.png'}" 
+                         alt="${item.product_name}" class="order-item-image">
+                    <div class="order-item-details">
+                        <div class="order-item-name">${item.product_name}</div>
+                        <div class="order-item-meta">
+                            <span class="me-2">SL: ${item.quantity}</span>
+                            ${item.color ? `<span class="me-2">Màu: ${item.color}</span>` : ''}
+                            ${item.size ? `<span class="me-2">Size: ${item.size}</span>` : ''}
+                        </div>
+                    </div>
+                    <div class="order-item-price">${formatPrice(item.total_price)}</div>
+                </div>
+            `).join('');
+        }
+        
+        // Get order status text and styling
+        function getStatusClass(status) {
+            const statusMap = {
+                'pending': 'pending',
+                'paid': 'paid',
+                'shipped': 'shipped',
+                'delivered': 'delivered',
+                'cancelled': 'cancelled'
+            };
+            return statusMap[status] || 'pending';
+        }
+        
+        function getStatusText(status) {
+            const statusMap = {
+                'pending': '⏳ Chờ xác nhận',
+                'paid': '✓ Đã thanh toán',
+                'shipped': '🚚 Đang giao',
+                'delivered': '📦 Đã giao',
+                'cancelled': '✕ Hủy đơn'
+            };
+            return statusMap[status] || 'Không xác định';
+        }
+        
+        // Get available actions for order
+        function getOrderActions(order) {
+            let actions = `<button class="btn-action btn-view-detail" onclick="viewOrderDetail(${order.order_id})">
+                <i class="fas fa-eye me-1"></i>Chi tiết
+            </button>`;
+            
+            // Show cancel button for pending orders
+            if (order.order_status === 'pending') {
+                actions += `<button class="btn-action btn-cancel-order" onclick="cancelOrder(${order.order_id})">
+                    <i class="fas fa-times me-1"></i>Hủy
+                </button>`;
+            }
+            
+            // Show review button for delivered orders
+            if (order.order_status === 'delivered') {
+                actions += `<button class="btn-action btn-review" onclick="reviewOrder(${order.order_id})">
+                    <i class="fas fa-star me-1"></i>Đánh giá
+                </button>`;
+            }
+            
+            return actions;
+        }
+        
+        // Format price to Vietnamese Dong
+        function formatPrice(price) {
+            return new Intl.NumberFormat('vi-VN', {
+                style: 'currency',
+                currency: 'VND',
+                maximumFractionDigits: 0
+            }).format(price);
+        }
+        
+        // View order detail
+        function viewOrderDetail(orderId) {
+            // Redirect to order detail page
+            window.location.href = `/Ecom_website/order-detail?id=${orderId}`;
+        }
+        
+        // Cancel order
+        async function cancelOrder(orderId) {
+            if (!confirm('Bạn có chắc chắn muốn hủy đơn hàng này?')) {
+                return;
+            }
+            
+            try {
+                const response = await fetch(`/Ecom_website/api/orders/${orderId}/cancel`, {
+                    method: 'POST',
+                    credentials: 'same-origin',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    }
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    showAlert('ordersAlertContainer', true, 'Đơn hàng đã được hủy thành công');
+                    loadOrders();
+                } else {
+                    showAlert('ordersAlertContainer', false, result.message || 'Không thể hủy đơn hàng');
+                }
+            } catch (error) {
+                console.error('Error cancelling order:', error);
+                showAlert('ordersAlertContainer', false, 'Có lỗi xảy ra khi hủy đơn hàng');
+            }
+        }
+        
+        // Review order
+        function reviewOrder(orderId) {
+            // Convert to number if needed
+            orderId = parseInt(orderId);
+            console.log('Review order ID:', orderId, 'Type:', typeof orderId);
+            console.log('All orders:', allOrders);
+            
+            // Find the order and get its items
+            let order = allOrders.find(o => parseInt(o.order_id) === orderId);
+            console.log('Found order:', order);
+            
+            if (order && order.items && order.items.length > 0) {
+                // Create review modal for items in this order
+                showReviewModal(order);
+            } else {
+                // If order not found in allOrders, try to fetch it
+                console.warn('Order not found in allOrders, attempting to fetch...');
+                fetchAndReviewOrder(orderId);
+            }
+        }
+        
+        // Fetch a specific order and show review modal
+        async function fetchAndReviewOrder(orderId) {
+            try {
+                const response = await fetch('/Ecom_website/api/orders/detail?order_id=' + orderId, {
+                    method: 'GET',
+                    credentials: 'same-origin'
+                });
+                
+                if (!response.ok) {
+                    throw new Error('Order not found');
+                }
+                
+                const result = await response.json();
+                
+                if (result.success && result.data) {
+                    // Add to allOrders for future reference
+                    allOrders.push(result.data);
+                    showReviewModal(result.data);
+                } else {
+                    alert('Không tìm thấy đơn hàng: ' + (result.message || 'Unknown error'));
+                }
+            } catch (error) {
+                console.error('Error fetching order:', error);
+                alert('Không thể tải thông tin đơn hàng. Vui lòng thử lại.');
+            }
+        }
+        
+        // Show review modal for order items
+        function showReviewModal(order) {
+            const items = order.items || [];
+            
+            if (items.length === 0) {
+                alert('Không có sản phẩm để đánh giá');
+                return;
+            }
+            
+            console.log('Creating review modal with', items.length, 'items');
+            
+            // Create modal HTML
+            let modalHtml = `
+                <div class="modal fade" id="reviewModal" tabindex="-1" aria-labelledby="reviewModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="reviewModalLabel">Đánh giá sản phẩm từ đơn hàng #${order.order_id}</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="review-items-tabs">
+                                    <ul class="nav nav-tabs mb-3">
+            `;
+            
+            // Create tabs for each item
+            items.forEach((item, index) => {
+                modalHtml += `
+                    <li class="nav-item">
+                        <button class="nav-link ${index === 0 ? 'active' : ''}" data-bs-toggle="tab" data-bs-target="#review-item-${index}" type="button">
+                            ${item.product_name}
+                        </button>
+                    </li>
+                `;
+            });
+            
+            modalHtml += `
+                                    </ul>
+                                    <div class="tab-content">
+            `;
+            
+            // Create review forms for each item
+            items.forEach((item, index) => {
+                // Ensure product_image is set
+                const productImage = item.product_image || '/Ecom_website/public/uploads/products/placeholder.png';
+                
+                modalHtml += `
+                    <div class="tab-pane fade ${index === 0 ? 'show active' : ''}" id="review-item-${index}" role="tabpanel">
+                        <form class="review-form" data-product-id="${item.product_id}">
+                            <div class="mb-3">
+                                <div class="d-flex align-items-center gap-3 mb-3">
+                                    <img src="${productImage}" alt="${item.product_name}" 
+                                         style="width: 60px; height: 60px; object-fit: cover; border-radius: 5px;"
+                                         onerror="this.src='/Ecom_website/public/uploads/products/placeholder.png'">
+                                    <div>
+                                        <h6 class="mb-0">${item.product_name}</h6>
+                                        <small class="text-muted">SL: ${item.quantity}</small>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label class="form-label">Đánh giá:</label>
+                                <div class="rating-input">
+                                    <input type="radio" name="rating" value="5" id="star5-${index}" required>
+                                    <label for="star5-${index}"><i class="fas fa-star"></i></label>
+                                    
+                                    <input type="radio" name="rating" value="4" id="star4-${index}">
+                                    <label for="star4-${index}"><i class="fas fa-star"></i></label>
+                                    
+                                    <input type="radio" name="rating" value="3" id="star3-${index}">
+                                    <label for="star3-${index}"><i class="fas fa-star"></i></label>
+                                    
+                                    <input type="radio" name="rating" value="2" id="star2-${index}">
+                                    <label for="star2-${index}"><i class="fas fa-star"></i></label>
+                                    
+                                    <input type="radio" name="rating" value="1" id="star1-${index}">
+                                    <label for="star1-${index}"><i class="fas fa-star"></i></label>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label class="form-label">Tiêu đề đánh giá:</label>
+                                <input type="text" class="form-control" name="title" 
+                                       placeholder="Ví dụ: Sản phẩm tuyệt vời" required maxlength="255">
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label class="form-label">Nội dung đánh giá:</label>
+                                <textarea class="form-control" name="comment" rows="4" 
+                                          placeholder="Chia sẻ ý kiến của bạn về sản phẩm này..." 
+                                          required maxlength="1000"></textarea>
+                                <small class="text-muted d-block mt-1">Tối đa 1000 ký tự</small>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary w-100">
+                                <i class="fas fa-send me-2"></i>Gửi đánh giá
+                            </button>
+                        </form>
+                    </div>
+                `;
+            });
+            
+            modalHtml += `
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            // Remove old modal if exists
+            const oldModal = document.getElementById('reviewModal');
+            if (oldModal) {
+                oldModal.remove();
+            }
+            
+            // Add modal to page
+            document.body.insertAdjacentHTML('beforeend', modalHtml);
+            
+            // Show modal with a small delay to ensure DOM is ready
+            setTimeout(() => {
+                const reviewModal = new bootstrap.Modal(document.getElementById('reviewModal'));
+                reviewModal.show();
+                console.log('Modal shown');
+                
+                // Attach form submission handlers
+                attachReviewFormHandlers();
+            }, 100);
+        }
+        
+        // Attach review form handlers
+        function attachReviewFormHandlers() {
+            document.querySelectorAll('.review-form').forEach(form => {
+                form.addEventListener('submit', async function(e) {
+                    e.preventDefault();
+                    
+                    const productId = this.dataset.productId;
+                    const rating = this.querySelector('input[name="rating"]:checked');
+                    
+                    if (!rating) {
+                        alert('Vui lòng chọn mức đánh giá');
+                        return;
+                    }
+                    
+                    const title = this.querySelector('input[name="title"]').value.trim();
+                    const comment = this.querySelector('textarea[name="comment"]').value.trim();
+                    
+                    // Validate
+                    if (!title || !comment) {
+                        alert('Vui lòng điền đầy đủ thông tin');
+                        return;
+                    }
+                    
+                    console.log('Submitting review for product', productId);
+                    
+                    // Submit review
+                    try {
+                        const response = await fetch('/Ecom_website/api/reviews/add', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/x-www-form-urlencoded',
+                                'X-Requested-With': 'XMLHttpRequest'
+                            },
+                            body: new URLSearchParams({
+                                product_id: productId,
+                                rating: rating.value,
+                                title: title,
+                                comment: comment
+                            })
+                        });
+                        
+                        const result = await response.json();
+                        console.log('Review response:', result);
+                        
+                        if (result.success) {
+                            showAlert('ordersAlertContainer', true, 'Đánh giá của bạn đã được gửi và chờ duyệt');
+                            const modal = bootstrap.Modal.getInstance(document.getElementById('reviewModal'));
+                            modal.hide();
+                            setTimeout(() => {
+                                modal.dispose();
+                                document.getElementById('reviewModal').remove();
+                            }, 500);
+                        } else {
+                            showAlert('ordersAlertContainer', false, result.message || 'Có lỗi khi gửi đánh giá');
+                        }
+                    } catch (error) {
+                        console.error('Error submitting review:', error);
+                        showAlert('ordersAlertContainer', false, 'Có lỗi xảy ra khi gửi đánh giá: ' + error.message);
+                    }
+                });
+            });
+        }
+        
+        // Filter orders
+        document.querySelectorAll('[data-filter]').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const filter = this.dataset.filter;
+                currentFilter = filter;
+                
+                // Update active button
+                document.querySelectorAll('[data-filter]').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                
+                // Filter and display orders
+                let filtered = allOrders;
+                if (filter !== 'all') {
+                    filtered = allOrders.filter(o => o.order_status === filter);
+                }
+                
+                displayOrders(filtered);
+            });
+        });
+        
+        // Attach event listeners to order cards
+        function attachOrderEventListeners() {
+            // Event listeners are attached via onclick handlers in buttons
+            // You can add more interactive features here if needed
+        }
+        
+        // Show alert function (reuse from profile)
+        function showAlert(container, success, message) {
+            const alertContainer = document.getElementById(container);
+            alertContainer.innerHTML = `
+                <div class="alert alert-${success ? 'success' : 'danger'} alert-dismissible fade show" role="alert">
+                    <i class="fas fa-${success ? 'check-circle' : 'exclamation-circle'} me-2"></i>
+                    ${message}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            `;
         }
     </script>
 </body>

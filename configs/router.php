@@ -91,6 +91,14 @@ class Route {
         'order/buynow' => ['OrderController', 'buyNow'],
         'order-success' => ['CheckoutController', 'orderSuccess'],
 
+        // Order API routes
+        'api/orders/list' => ['OrderController', 'listUserOrders'],
+        'api/orders/detail' => ['OrderController', 'getOrderDetail'],
+        'api/orders/cancel' => ['OrderController', 'cancelOrder'],
+        
+        // Order detail page route
+        'order-detail' => ['OrderController', 'showOrderDetail'],
+
         // Location API routes
         'api/locations/provinces' => ['LocationController', 'getProvinces'],
         'api/locations/wards' => ['LocationController', 'getWards'],
@@ -140,6 +148,19 @@ class Route {
             // Giữ product id làm parameter
             $this->params = [$url[1]];
             $routeFound = true;
+        }
+        
+        // 3.6. Xử lý đặc biệt cho Orders API với dynamic ID (VD: 'api/orders/123/cancel')
+        if (!$routeFound && isset($url[0]) && $url[0] === 'api' && isset($url[1]) && $url[1] === 'orders' && isset($url[2]) && isset($url[3])) {
+            $orderId = $url[2];
+            $action = $url[3];
+            
+            if ($action === 'cancel' || $action === 'detail') {
+                $this->controller = 'OrderController';
+                $this->method = $action === 'cancel' ? 'cancelOrder' : 'getOrderDetail';
+                $this->params = [$orderId];
+                $routeFound = true;
+            }
         }
         
         // 4. Nếu không khớp, kiểm tra route 1 phần (VD: 'products')

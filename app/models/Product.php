@@ -157,8 +157,24 @@ class Product extends BaseModel {
         $this->db->bind(':product_id', $productId);
         $result = $this->db->single();
         
-        // Return image URL or default fallback
-        return $result ? $result->file_path : 'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=100&h=100&fit=crop';
+        if ($result && $result->file_path) {
+            $filePath = $result->file_path;
+            
+            // Check if it's already a full URL (http/https)
+            if (strpos($filePath, 'http://') === 0 || strpos($filePath, 'https://') === 0) {
+                return $filePath;
+            }
+            
+            // Check if it's already a complete relative path that includes directory
+            if (strpos($filePath, 'public/uploads/products/') === 0) {
+                return '/Ecom_website/' . $filePath;
+            }
+            
+            // Otherwise, it's just a filename - prepend the full path
+            return '/Ecom_website/public/uploads/products/' . $filePath;
+        }
+        
+        return 'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=100&h=100&fit=crop';
     }
 
 //     /**
