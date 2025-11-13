@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang Sức Admin - Dashboard</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/variables.css">
+    <link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+    <div class="admin-wrapper">
+        <!-- Sidebar Component Container -->
+        <div id="sidebar-container"></div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Header Component Container -->
+            <div id="header-container"></div>
+
+            <!-- Content -->
+            <main class="content">
+                <!-- Date Range -->
+                <div class="mb-4">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div></div>
+                        <div class="d-flex align-items-center gap-2">
+                            <img src="https://cdn-icons-png.flaticon.com/512/2693/2693507.png" alt="Calendar" width="20" height="20">
+                            <span>Feb 16 2022 - Feb 20 2022</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Stats Cards -->
+                <div class="row mb-4">
+                    <div class="col-lg-4 col-md-6 col-sm-6 mb-3">
+                        <div class="stats-card">
+                            <div class="stats-value">$126.560</div>
+                            <div class="stats-label">Total Orders</div>
+                            <div class="stats-change positive">
+                                <img src="https://cdn-icons-png.flaticon.com/512/5610/5610944.png" alt="Up" width="12" height="12">
+                                36.7% <small class="text-muted d-none d-sm-inline">Compared to Jan 2022</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-6 mb-3">
+                        <div class="stats-card">
+                            <div class="stats-value">$101.560</div>
+                            <div class="stats-label">Active Orders</div>
+                            <div class="stats-change positive">
+                                <img src="https://cdn-icons-png.flaticon.com/512/5610/5610944.png" alt="Up" width="12" height="12">
+                                36.7% <small class="text-muted d-none d-sm-inline">Compared to Jan 2022</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-12 col-sm-12 mb-3">
+                        <div class="stats-card">
+                            <div class="stats-value">$126.560</div>
+                            <div class="stats-label">Shipped Orders</div>
+                            <div class="stats-change positive">
+                                <img src="https://cdn-icons-png.flaticon.com/512/5610/5610944.png" alt="Up" width="12" height="12">
+                                36.7% <small class="text-muted d-none d-sm-inline">Compared to Jan 2022</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <!-- Sales Graph -->
+                    <div class="col-lg-8 mb-4">
+                        <div class="table-card">
+                            <div class="table-header">
+                                <h5 class="table-title">Sale Graph</h5>
+                                <div class="btn-group" role="group">
+                                    <input type="radio" class="btn-check" name="period" id="weekly">
+                                    <label class="btn btn-outline-secondary btn-sm" for="weekly">WEEKLY</label>
+                                    
+                                    <input type="radio" class="btn-check" name="period" id="monthly" checked>
+                                    <label class="btn btn-outline-secondary btn-sm" for="monthly">MONTHLY</label>
+                                    
+                                    <input type="radio" class="btn-check" name="period" id="yearly">
+                                    <label class="btn btn-outline-secondary btn-sm" for="yearly">YEARLY</label>
+                                </div>
+                            </div>
+                            <div class="p-4">
+                                <!-- Placeholder for chart -->
+                                <div class="text-center py-5" style="height: 300px; border: 2px dashed #e9ecef; border-radius: var(--border-radius);">
+                                    <img src="https://cdn-icons-png.flaticon.com/512/2920/2920277.png" alt="Chart" width="48" height="48" class="mb-3 opacity-50">
+                                    <p class="text-muted">Chart will be rendered here with Chart.js</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Best Sellers -->
+                    <div class="col-lg-4 mb-4">
+                        <div class="table-card">
+                            <div class="table-header">
+                                <h5 class="table-title">Best Sellers</h5>
+                                <button class="btn btn-link btn-sm">REPORT</button>
+                            </div>
+                            <div class="p-3">
+                                <div class="d-flex align-items-center mb-3 pb-3 border-bottom border-custom">
+                                    <img src="https://images.unsplash.com/photo-1708221382764-299d9e3ad257?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Shoe" class="product-img me-3">
+                                    <div class="flex-grow-1">
+                                        <div class="fw-bold">Vòng cổ Dianat</div>
+                                        <div class="text-muted-custom small">$126.50</div>
+                                    </div>
+                                    <div class="text-end">
+                                        <div class="fw-bold">$126.50</div>
+                                        <div class="text-muted-custom small">999 Sales</div>
+                                    </div>
+                                </div>
+                                <div class="d-flex align-items-center mb-3 pb-3 border-bottom border-custom">
+                                    <img src="https://images.unsplash.com/photo-1722410180687-b05b50922362?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Shoe" class="product-img me-3">
+                                    <div class="flex-grow-1">
+                                        <div class="fw-bold">Khuyên tai Gentle Summer </div>
+                                        <div class="text-muted-custom small">$126.50</div>
+                                    </div>
+                                    <div class="text-end">
+                                        <div class="fw-bold">$126.50</div>
+                                        <div class="text-muted-custom small">999 Sales</div>
+                                    </div>
+                                </div>
+                                <div class="d-flex align-items-center">
+                                    <img src="https://images.unsplash.com/photo-1522001947148-8b4dfe064edc?q=80&w=746&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Shoe" class="product-img me-3">
+                                    <div class="flex-grow-1">
+                                        <div class="fw-bold">Vòng tay beautyfy </div>
+                                        <div class="text-muted-custom small">$126.50</div>
+                                    </div>
+                                    <div class="text-end">
+                                        <div class="fw-bold">$126.50</div>
+                                        <div class="text-muted-custom small">999 Sales</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Orders -->
+                <div class="table-card">
+                    <div class="table-header">
+                        <h5 class="table-title">Recent Orders</h5>
+                        <div class="dropdown">
+                            <button class="btn btn-link" type="button" data-bs-toggle="dropdown">
+                                <img src="https://cdn-icons-png.flaticon.com/512/2311/2311524.png" alt="More" width="20" height="20">
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">View All</a></li>
+                                <li><a class="dropdown-item" href="#">Export</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        <input type="checkbox" class="form-check-input">
+                                    </th>
+                                    <th>Product</th>
+                                    <th>Order ID</th>
+                                    <th>Date</th>
+                                    <th>Customer Name</th>
+                                    <th>Status</th>
+                                    <th>Amount</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><input type="checkbox" class="form-check-input"></td>
+                                    <td>Adidas Ultra boost</td>
+                                    <td>#5436</td>
+                                    <td>Jan 8th, 2022</td>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="User" width="24" height="24" class="rounded-circle me-2">
+                                            Leo Gouse
+                                        </div>
+                                    </td>
+                                    <td><span class="badge badge-delivered badge-custom">Delivered</span></td>
+                                    <td>$200.00</td>
+                                </tr>
+                                <tr>
+                                    <td><input type="checkbox" class="form-check-input"></td>
+                                    <td>Adidas Ultra boost</td>
+                                    <td>#5435</td>
+                                    <td>Jan 7th, 2022</td>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="User" width="24" height="24" class="rounded-circle me-2">
+                                            Jaxson Korsgaart
+                                        </div>
+                                    </td>
+                                    <td><span class="badge badge-canceled badge-custom">Canceled</span></td>
+                                    <td>$200.00</td>
+                                </tr>
+                                <tr>
+                                    <td><input type="checkbox" class="form-check-input"></td>
+                                    <td>Adidas Ultra boost</td>
+                                    <td>#5434</td>
+                                    <td>Jan 6th, 2022</td>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="User" width="24" height="24" class="rounded-circle me-2">
+                                            Talan Botosh
+                                        </div>
+                                    </td>
+                                    <td><span class="badge badge-delivered badge-custom">Delivered</span></td>
+                                    <td>$200.00</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Component Manager -->
+    <script src="components/component-manager.js"></script>
+    
+    <!-- Page Configuration -->
+    <script>
+        window.pageConfig = {
+            sidebar: {
+                brandName: 'JEWELLERY',
+                activePage: 'dashboard',
+                links: {
+                    dashboard: 'index.html',
+                    products: 'pages/products.html',
+                    orders: 'pages/orders.html'
+                },
+                categories: [
+                    { name: 'Vòng cổ', count: 12 },
+                    { name: 'Vòng tay', count: 10 },
+                    { name: 'Bông tai', count: 13 },
+                    { name: 'Nhẫn', count: 4 },
+                    { name: 'Lắc chân', count: 6 }
+                ],
+                categoriesTitle: 'DANH MỤC'
+            },
+            header: {
+                title: 'Dashboard',
+                breadcrumb: 'Home > Dashboard',
+                showDateRange: true,
+                dateRange: 'Feb 16 2022 - Feb 20 2022'
+            }
+        };
+    </script>
+    
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/main.js"></script>
+</body>
+</html>

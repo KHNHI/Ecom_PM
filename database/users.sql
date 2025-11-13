@@ -1,0 +1,21 @@
+CREATE TABLE IF NOT EXISTS `users` (
+  `user_id` int(11) NOT NULL AUTO_INCREMENT,
+  `email` varchar(255) NOT NULL,
+  `password_hash` varchar(255) NOT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `phone` varchar(20) DEFAULT NULL,
+  `role` enum('admin','customer') NOT NULL DEFAULT 'customer',
+  `is_active` tinyint(1) NOT NULL DEFAULT '0',
+  `verification_token` varchar(255) DEFAULT NULL,
+  `token_expires_at` datetime DEFAULT NULL,
+  `reset_token` varchar(255) DEFAULT NULL,
+  `reset_expires_at` datetime DEFAULT NULL,
+  `avatar` varchar(255) DEFAULT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`user_id`),
+  UNIQUE KEY `email` (`email`),
+  KEY `is_active` (`is_active`),
+  KEY `verification_token` (`verification_token`),
+  KEY `reset_token` (`reset_token`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

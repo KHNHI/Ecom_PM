@@ -1,0 +1,100 @@
+/* Admin Panel Custom Styles */
+
+/* User Dropdown Enhancements */
+.user-dropdown .dropdown-menu {
+    min-width: 280px;
+    padding: 0;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.user-dropdown .dropdown-header {
+    padding: 1rem;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border-radius: 0.25rem 0.25rem 0 0;
+}
+
+.user-dropdown .dropdown-header .text-muted {
+    color: rgba(255, 255, 255, 0.8) !important;
+    font-size: 0.875rem;
+}
+
+.user-dropdown .dropdown-item {
+    padding: 0.75rem 1rem;
+    transition: all 0.2s ease;
+}
+
+.user-dropdown .dropdown-item:hover {
+    background-color: #f8f9fa;
+    padding-left: 1.25rem;
+}
+
+.user-dropdown .dropdown-item.text-danger:hover {
+    background-color: #fee;
+    color: #dc3545 !important;
+}
+
+.user-dropdown .dropdown-item i {
+    width: 20px;
+    text-align: center;
+}
+
+.user-dropdown .dropdown-divider {
+    margin: 0;
+}
+
+/* Header User Button */
+.user-dropdown .btn {
+    border-color: rgba(0, 0, 0, 0.1);
+    padding: 0.5rem 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.user-dropdown .btn:hover {
+    background-color: #f8f9fa;
+    border-color: rgba(0, 0, 0, 0.2);
+}
+
+.user-dropdown .btn img {
+    border: 2px solid white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Admin Name Display */
+#admin-name {
+    font-weight: 500;
+    max-width: 150px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Dropdown Animation */
+.user-dropdown .dropdown-menu {
+    animation: slideDown 0.2s ease-out;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .user-dropdown .dropdown-menu {
+        min-width: 240px;
+    }
+    
+    #admin-name {
+        display: none;
+    }
+}
