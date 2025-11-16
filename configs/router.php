@@ -72,6 +72,9 @@ class Route {
         'profile/upload-avatar' => ['ProfileController', 'uploadAvatar'],
         'profile/change-password' => ['ProfileController', 'changePassword'],
 
+        // Notifications
+        'notifications' => ['NotificationController', 'showPage'],
+
         // Cart (cấp 1 & 2)
         'cart' => ['CartController', 'index'],
         'cart/add' => ['CartController', 'add'],
@@ -98,6 +101,17 @@ class Route {
         
         // Order detail page route
         'order-detail' => ['OrderController', 'showOrderDetail'],
+
+        // Notification API routes
+        // Notification routes
+        'api/notifications/recent' => ['NotificationController', 'getRecent'],
+        'api/notifications/unread' => ['NotificationController', 'getUnread'],
+        'api/notifications/count' => ['NotificationController', 'getUnreadCount'],
+        'api/notifications/all' => ['NotificationController', 'getAll'],
+        'api/notifications/mark-read' => ['NotificationController', 'markAsRead'],
+        'api/notifications/mark-all-read' => ['NotificationController', 'markAllAsRead'],
+        'api/notifications/delete' => ['NotificationController', 'delete'],
+        'api/notifications/delete-all' => ['NotificationController', 'deleteAll'],
 
         // Location API routes
         'api/locations/provinces' => ['LocationController', 'getProvinces'],

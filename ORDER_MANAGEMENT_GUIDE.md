@@ -1,6 +1,7 @@
 # 🛒 Order Management System - Hướng Dẫn Hoàn Chỉnh
 
 ## 📋 Mục lục
+
 1. [Tổng Quan](#tổng-quan)
 2. [Kiến Trúc Hệ Thống](#kiến-trúc-hệ-thống)
 3. [Cấu Trúc Database](#cấu-trúc-database)
@@ -43,13 +44,13 @@ MySQL Database
 
 ### Các File Liên Quan
 
-| File | Mục Đích |
-|------|----------|
-| `app/views/customer/pages/profile.php` | Frontend UI + JavaScript |
-| `app/controllers/OrderController.php` | API logic + data processing |
-| `app/models/Order.php` | Database queries |
-| `configs/router.php` | Route mapping |
-| `app/controllers/ReviewController.php` | Review/Rating handler |
+| File                                   | Mục Đích                    |
+| -------------------------------------- | --------------------------- |
+| `app/views/customer/pages/profile.php` | Frontend UI + JavaScript    |
+| `app/controllers/OrderController.php`  | API logic + data processing |
+| `app/models/Order.php`                 | Database queries            |
+| `configs/router.php`                   | Route mapping               |
+| `app/controllers/ReviewController.php` | Review/Rating handler       |
 
 ---
 
@@ -142,54 +143,57 @@ CREATE TABLE payments (
 **Method:** GET
 
 **Headers:**
+
 ```
 Accept: application/json
 ```
 
 **Response (Success):**
+
 ```json
 {
-    "success": true,
-    "message": "Lấy danh sách đơn hàng thành công",
-    "data": [
+  "success": true,
+  "message": "Lấy danh sách đơn hàng thành công",
+  "data": [
+    {
+      "order_id": 1,
+      "user_id": 5,
+      "full_name": "Nguyễn Văn A",
+      "email": "user@example.com",
+      "phone": "0912345678",
+      "order_status": "delivered",
+      "payment_method": "BANK_TRANSFER_HOME",
+      "total_amount": 2500000,
+      "created_at": "2024-01-15 10:30:00",
+      "payment": {
+        "payment_id": 1,
+        "payment_status": "completed",
+        "paid_at": "2024-01-15 10:45:00"
+      },
+      "items": [
         {
-            "order_id": 1,
-            "user_id": 5,
-            "full_name": "Nguyễn Văn A",
-            "email": "user@example.com",
-            "phone": "0912345678",
-            "order_status": "delivered",
-            "payment_method": "BANK_TRANSFER_HOME",
-            "total_amount": 2500000,
-            "created_at": "2024-01-15 10:30:00",
-            "payment": {
-                "payment_id": 1,
-                "payment_status": "completed",
-                "paid_at": "2024-01-15 10:45:00"
-            },
-            "items": [
-                {
-                    "product_id": 10,
-                    "product_name": "Nhẫn Kim Cương",
-                    "quantity": 1,
-                    "unit_price": 2500000,
-                    "total_price": 2500000,
-                    "color": "Vàng",
-                    "size": "6",
-                    "product_image": "/Ecom_website/public/uploads/products/ring_1.jpg"
-                }
-            ]
+          "product_id": 10,
+          "product_name": "Nhẫn Kim Cương",
+          "quantity": 1,
+          "unit_price": 2500000,
+          "total_price": 2500000,
+          "color": "Vàng",
+          "size": "6",
+          "product_image": "/Ecom_website/public/uploads/products/ring_1.jpg"
         }
-    ]
+      ]
+    }
+  ]
 }
 ```
 
 **Response (No Orders):**
+
 ```json
 {
-    "success": true,
-    "message": "Không có đơn hàng",
-    "data": null
+  "success": true,
+  "message": "Không có đơn hàng",
+  "data": null
 }
 ```
 
@@ -202,6 +206,7 @@ Accept: application/json
 **Method:** GET
 
 **Parameters:**
+
 - `order_id` (URL parameter): ID của đơn hàng
 
 **Response:** Tương tự như item trong list endpoint
@@ -215,31 +220,36 @@ Accept: application/json
 **Method:** POST
 
 **Headers:**
+
 ```
 Accept: application/json
 Content-Type: application/json
 ```
 
 **Parameters:**
+
 - `order_id` (URL parameter): ID của đơn hàng để hủy
 
 **Rules:**
+
 - Chỉ có thể hủy đơn hàng ở trạng thái "pending" (chờ xác nhận)
 - Chỉ chủ sở hữu đơn hàng mới có thể hủy
 
 **Response (Success):**
+
 ```json
 {
-    "success": true,
-    "message": "Đơn hàng đã được hủy thành công"
+  "success": true,
+  "message": "Đơn hàng đã được hủy thành công"
 }
 ```
 
 **Response (Error - Cannot Cancel):**
+
 ```json
 {
-    "success": false,
-    "message": "Chỉ có thể hủy đơn hàng chờ xác nhận"
+  "success": false,
+  "message": "Chỉ có thể hủy đơn hàng chờ xác nhận"
 }
 ```
 
@@ -250,39 +260,58 @@ Content-Type: application/json
 ### Location: `app/views/customer/pages/profile.php`
 
 #### 1. **Tab Navigation**
+
 ```html
-<button class="nav-link" id="orders-tab" data-bs-toggle="pill" data-bs-target="#orders">
-    <i class="fas fa-shopping-bag me-2"></i>Đơn hàng của tôi
+<button
+  class="nav-link"
+  id="orders-tab"
+  data-bs-toggle="pill"
+  data-bs-target="#orders"
+>
+  <i class="fas fa-shopping-bag me-2"></i>Đơn hàng của tôi
 </button>
 ```
 
 #### 2. **Tab Content**
+
 ```html
 <div class="tab-pane fade" id="orders" role="tabpanel">
-    <!-- Filter buttons -->
-    <div class="mb-4 d-flex gap-2 flex-wrap">
-        <button class="btn btn-sm btn-outline-primary active" data-filter="all">Tất cả</button>
-        <button class="btn btn-sm btn-outline-primary" data-filter="pending">Chờ xác nhận</button>
-        <button class="btn btn-sm btn-outline-primary" data-filter="paid">Đã thanh toán</button>
-        <button class="btn btn-sm btn-outline-primary" data-filter="shipped">Đang giao</button>
-        <button class="btn btn-sm btn-outline-primary" data-filter="delivered">Đã giao</button>
-        <button class="btn btn-sm btn-outline-danger" data-filter="cancelled">Hủy</button>
-    </div>
-    
-    <!-- Orders container -->
-    <div id="ordersContainer" class="orders-list"></div>
+  <!-- Filter buttons -->
+  <div class="mb-4 d-flex gap-2 flex-wrap">
+    <button class="btn btn-sm btn-outline-primary active" data-filter="all">
+      Tất cả
+    </button>
+    <button class="btn btn-sm btn-outline-primary" data-filter="pending">
+      Chờ xác nhận
+    </button>
+    <button class="btn btn-sm btn-outline-primary" data-filter="paid">
+      Đã thanh toán
+    </button>
+    <button class="btn btn-sm btn-outline-primary" data-filter="shipped">
+      Đang giao
+    </button>
+    <button class="btn btn-sm btn-outline-primary" data-filter="delivered">
+      Đã giao
+    </button>
+    <button class="btn btn-sm btn-outline-danger" data-filter="cancelled">
+      Hủy
+    </button>
+  </div>
+
+  <!-- Orders container -->
+  <div id="ordersContainer" class="orders-list"></div>
 </div>
 ```
 
 #### 3. **CSS Classes**
 
-| Class | Purpose |
-|-------|---------|
-| `.order-card` | Order item container |
+| Class                          | Purpose                                                 |
+| ------------------------------ | ------------------------------------------------------- |
+| `.order-card`                  | Order item container                                    |
 | `.order-status-badge.{status}` | Status badge (pending/paid/shipped/delivered/cancelled) |
-| `.order-item` | Individual product in order |
-| `.btn-action.btn-cancel-order` | Cancel button (pending only) |
-| `.btn-action.btn-review` | Review button (delivered only) |
+| `.order-item`                  | Individual product in order                             |
+| `.btn-action.btn-cancel-order` | Cancel button (pending only)                            |
+| `.btn-action.btn-review`       | Review button (delivered only)                          |
 
 #### 4. **JavaScript Functions**
 
@@ -436,6 +465,7 @@ reviewOrder(orderId)
 ### Current Reviews Section:
 
 The product detail page already has a review section showing:
+
 - Review statistics (rating breakdown)
 - Individual reviews from customers
 - Review submission form (for logged-in users)
@@ -443,6 +473,7 @@ The product detail page already has a review section showing:
 ### Integration:
 
 When customer reviews from order management:
+
 - Review is submitted via same endpoint: `/Ecom_website/api/reviews/add`
 - Review appears in product detail page automatically
 - Customer can see their review in:
@@ -468,6 +499,7 @@ Review appears in:
 ## 🔐 Security Features
 
 ### 1. **User Authorization**
+
 ```php
 // Check if user is logged in
 $userId = $_SESSION['user_id'] ?? null;
@@ -478,6 +510,7 @@ if (!$userId) {
 ```
 
 ### 2. **Order Ownership Verification**
+
 ```php
 // Check if order belongs to logged-in user
 if ($order->user_id != $userId) {
@@ -487,6 +520,7 @@ if ($order->user_id != $userId) {
 ```
 
 ### 3. **Status Validation**
+
 ```php
 // Only allow cancelling pending orders
 if ($order->order_status !== 'pending') {
@@ -498,13 +532,13 @@ if ($order->order_status !== 'pending') {
 
 ## 📝 Trạng Thái Đơn Hàng
 
-| Status | Display | Meaning | Actions |
-|--------|---------|---------|---------|
-| `pending` | ⏳ Chờ xác nhận | Chưa thanh toán, chờ xác nhận từ admin | Cancel, View |
-| `paid` | ✓ Đã thanh toán | Thanh toán xong, chờ chuẩn bị hàng | View |
-| `shipped` | 🚚 Đang giao | Hàng đang trên đường | View |
-| `delivered` | 📦 Đã giao | Hàng đã được giao | View, **Review** |
-| `cancelled` | ✕ Hủy | Đơn hàng bị hủy (bởi customer hoặc admin) | View |
+| Status      | Display         | Meaning                                   | Actions          |
+| ----------- | --------------- | ----------------------------------------- | ---------------- |
+| `pending`   | ⏳ Chờ xác nhận | Chưa thanh toán, chờ xác nhận từ admin    | Cancel, View     |
+| `paid`      | ✓ Đã thanh toán | Thanh toán xong, chờ chuẩn bị hàng        | View             |
+| `shipped`   | 🚚 Đang giao    | Hàng đang trên đường                      | View             |
+| `delivered` | 📦 Đã giao      | Hàng đã được giao                         | View, **Review** |
+| `cancelled` | ✕ Hủy           | Đơn hàng bị hủy (bởi customer hoặc admin) | View             |
 
 ---
 
@@ -513,6 +547,7 @@ if ($order->order_status !== 'pending') {
 ### Issue: Reviews not appearing
 
 **Solution:**
+
 1. Check `reviews` table has records
 2. Verify user is logged in
 3. Check `/api/reviews/get` endpoint works
@@ -521,6 +556,7 @@ if ($order->order_status !== 'pending') {
 ### Issue: Cannot cancel order
 
 **Solution:**
+
 1. Verify order status = 'pending'
 2. Check user owns the order (user_id matches)
 3. Check session is set correctly
@@ -528,6 +564,7 @@ if ($order->order_status !== 'pending') {
 ### Issue: Order items showing no color/size
 
 **Solution:**
+
 1. Check `product_variants` table has records
 2. Verify variant_id is stored in `order_items`
 3. Check getVariantInfo() method in OrderController
@@ -562,6 +599,7 @@ if ($order->order_status !== 'pending') {
 ## 📞 Support
 
 For issues or questions about the Order Management System:
+
 1. Check this documentation first
 2. Review code comments in related files
 3. Check error logs in `logs/` directory

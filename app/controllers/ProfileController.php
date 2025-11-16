@@ -281,6 +281,14 @@ class ProfileController extends BaseController {
         }
     }
 
-  
+    /**
+     * Show notifications page
+     */
+    public function notifications() {
+        $userId = SessionHelper::getUserId();
+        $this->view('customer/pages/notifications', [
+            'title' => 'Thông báo của tôi'
+        ]);
+    }
 }
 ?>

@@ -70,6 +70,35 @@ $user = SessionHelper::getUser();
             
             <!-- Right Side Actions -->
             <ul class="navbar-nav">
+                <?php if ($isLoggedIn): ?>
+                    <!-- Notifications -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link position-relative" href="#" id="notificationToggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-bell"></i>
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-warning text-dark" id="notificationBadge" style="display: none;">
+                                0
+                            </span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end" style="width: 400px; max-height: 500px; overflow-y: auto;" id="notificationDropdown">
+                            <div class="dropdown-header d-flex justify-content-between align-items-center">
+                                <h6 class="mb-0">Thông báo</h6>
+                                <button class="btn btn-sm btn-link" onclick="markAllNotificationsRead()">
+                                    <small>Đánh dấu tất cả đã đọc</small>
+                                </button>
+                            </div>
+                            <div id="notificationsList" style="max-height: 400px; overflow-y: auto;">
+                                <div class="text-center text-muted py-3">
+                                    <small>Đang tải...</small>
+                                </div>
+                            </div>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item text-center small" href="<?= url('/notifications') ?>">
+                                Xem tất cả thông báo →
+                            </a>
+                        </div>
+                    </li>
+                <?php endif; ?>
+                
                 <!-- Shopping Cart -->
                 <li class="nav-item">
                     <a class="nav-link position-relative" href="<?= url('/cart') ?>">
@@ -217,9 +246,172 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Update cart badge count
     updateCartBadge();
+
+    // Load notifications for logged-in users
+    <?php if ($isLoggedIn): ?>
+    loadNotifications();
+    // Refresh notifications every 30 seconds
+    setInterval(loadNotifications, 30000);
+    <?php endif; ?>
 });
 
-/**
+// Notification functions
+function loadNotifications() {
+    // Use 'recent' endpoint to get both read and unread (so they don't disappear after clicking)
+    fetch('<?= url('/api/notifications/recent') ?>?limit=10', {
+        credentials: 'same-origin'
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            updateNotificationUI(data.data || []);
+        }
+    })
+    .catch(error => console.error('Error loading notifications:', error));
+}
+
+function updateNotificationUI(notifications) {
+    const badge = document.getElementById('notificationBadge');
+    const list = document.getElementById('notificationsList');
+    
+    // Fetch accurate unread count from API
+    fetch('<?= url('/api/notifications/count') ?>', {
+        credentials: 'same-origin'
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success && data.data) {
+            const unreadCount = data.data.count || 0;
+            if (unreadCount > 0) {
+                badge.textContent = unreadCount > 9 ? '9+' : unreadCount;
+                badge.style.display = 'inline-block';
+            } else {
+                badge.style.display = 'none';
+            }
+        }
+    })
+    .catch(error => console.error('Error fetching unread count:', error));
+    
+    // Update list - show all recent (both read and unread)
+    if (notifications.length === 0) {
+        list.innerHTML = '<div class="text-center text-muted py-3"><small>Không có thông báo</small></div>';
+        return;
+    }
+    
+    let html = '';
+    notifications.forEach(notif => {
+        const isRead = notif.is_read == 1 || notif.is_read === '1';
+        const readClass = isRead ? 'bg-light' : 'bg-white border-left border-warning';
+        const readIcon = isRead ? '<i class="fas fa-check-circle text-muted me-2"></i>' : '<i class="fas fa-circle text-warning me-2"></i>';
+        
+        html += `
+            <a href="#" class="dropdown-item ${readClass} py-2" onclick="handleNotificationClick(event, ${notif.notification_id}, '${notif.ref_type}', ${notif.ref_id}, '${notif.collection_slug || ''}')">
+                <div class="d-flex">
+                    <div style="flex: 1;">
+                        ${readIcon}
+                        <strong class="notification-title">${notif.title}</strong>
+                        <small class="text-muted d-block mt-1">${notif.message}</small>
+                        <small class="text-muted d-block mt-1">${formatNotificationTime(notif.created_at)}</small>
+                    </div>
+                    <button class="btn-close ms-2" onclick="deleteNotification(event, ${notif.notification_id})" style="font-size: 0.7rem;" title="Xóa thông báo"></button>
+                </div>
+            </a>
+        `;
+    });
+    
+    list.innerHTML = html;
+}
+
+function handleNotificationClick(event, notificationId, refType, refId, refSlug) {
+    event.preventDefault();
+    event.stopPropagation();
+    
+    // Mark as read (ONLY - do not delete)
+    markNotificationAsRead(notificationId);
+    
+    // Navigate based on type
+    if (refType === 'order') {
+        window.location.href = '<?= url('/order-detail') ?>?order_id=' + refId;
+    } else if (refType === 'collection') {
+        // Navigate to collection detail with slug
+        window.location.href = '<?= url('/collection/') ?>' + refSlug;
+    }
+}
+
+function markNotificationAsRead(notificationId) {
+    fetch('<?= url('/api/notifications/mark-read') ?>', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'X-Requested-With': 'XMLHttpRequest'
+        },
+        body: 'notification_id=' + notificationId,
+        credentials: 'same-origin'
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            // Reload to update badge
+            loadNotifications();
+        }
+    })
+    .catch(error => console.error('Error marking notification as read:', error));
+}
+
+function markAllNotificationsRead() {
+    fetch('<?= url('/api/notifications/mark-all-read') ?>', {
+        method: 'POST',
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest'
+        },
+        credentials: 'same-origin'
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            loadNotifications();
+        }
+    })
+    .catch(error => console.error('Error marking all notifications as read:', error));
+}
+
+function deleteNotification(event, notificationId) {
+    event.preventDefault();
+    event.stopPropagation();
+    
+    fetch('<?= url('/api/notifications/delete') ?>', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'X-Requested-With': 'XMLHttpRequest'
+        },
+        body: 'notification_id=' + notificationId,
+        credentials: 'same-origin'
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            loadNotifications();
+        }
+    })
+    .catch(error => console.error('Error deleting notification:', error));
+}
+
+function formatNotificationTime(dateString) {
+    const date = new Date(dateString);
+    const now = new Date();
+    const diffMs = now - date;
+    const diffMins = Math.floor(diffMs / 60000);
+    const diffHours = Math.floor(diffMs / 3600000);
+    const diffDays = Math.floor(diffMs / 86400000);
+    
+    if (diffMins < 1) return 'Vừa xong';
+    if (diffMins < 60) return diffMins + ' phút trước';
+    if (diffHours < 24) return diffHours + ' giờ trước';
+    if (diffDays < 7) return diffDays + ' ngày trước';
+    
+    return date.toLocaleDateString('vi-VN');
+}/**
  * Update cart badge with current cart count
  */
 function updateCartBadge() {

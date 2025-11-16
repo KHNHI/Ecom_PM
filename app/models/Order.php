@@ -259,7 +259,23 @@ class Order extends BaseModel {
                          WHERE order_id = :order_id");
         $this->db->bind(':status', $status);
         $this->db->bind(':order_id', $orderId);
-        return $this->db->execute();
+        $result = $this->db->execute();
+        
+        // Send notification to user if status updated
+        if ($result) {
+            try {
+                $order = $this->findByOrderId($orderId);
+                if ($order && $order->user_id) {
+                    require_once __DIR__ . '/Notification.php';
+                    $notificationModel = new Notification();
+                    $notificationModel->notifyOrderStatus($order->user_id, $orderId, $status);
+                }
+            } catch (Exception $e) {
+                error_log("Error sending notification: " . $e->getMessage());
+            }
+        }
+        
+        return $result;
     }
 
     public function countOrders() {
