@@ -29,16 +29,16 @@ class EmailHelper {
         $phpSelf = $_SERVER['PHP_SELF'] ?? '';
         
         // Method 1: From REQUEST_URI (most reliable)
-        if ($requestUri && strpos($requestUri, '/Ecom_website/') !== false) {
-            $projectPath = '/Ecom_website';
+        if ($requestUri && strpos($requestUri, '/Ecom_PM/') !== false) {
+            $projectPath = '/Ecom_PM';
         }
         // Method 2: From SCRIPT_NAME
-        elseif ($scriptName && strpos($scriptName, '/Ecom_website/') !== false) {
-            $projectPath = '/Ecom_website';
+        elseif ($scriptName && strpos($scriptName, '/Ecom_PM/') !== false) {
+            $projectPath = '/Ecom_PM';
         }
         // Method 3: From PHP_SELF
-        elseif ($phpSelf && strpos($phpSelf, '/Ecom_website/') !== false) {
-            $projectPath = '/Ecom_website';
+        elseif ($phpSelf && strpos($phpSelf, '/Ecom_PM/') !== false) {
+            $projectPath = '/Ecom_PM';
         }
         // Method 4: Check current directory structure
         elseif (defined('BASE_URL')) {
@@ -46,7 +46,7 @@ class EmailHelper {
         }
         // Method 5: Default for localhost
         elseif ($host === 'localhost' || strpos($host, 'localhost') !== false) {
-            $projectPath = '/Ecom_website';
+            $projectPath = '/Ecom_PM';
         }
         
         return $protocol . $host . $projectPath;

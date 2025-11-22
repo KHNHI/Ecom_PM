@@ -6,15 +6,15 @@
 
 /**
  * Tạo base URL gốc cho ứng dụng một cách tự động.
- * Hàm này sẽ luôn trả về đường dẫn đúng, ví dụ: '/Ecom_website' hoặc '/ten_folder_khac'
+ * Hàm này sẽ luôn trả về đường dẫn đúng, ví dụ: '/Ecom_PM' hoặc '/ten_folder_khac'
  * hoặc rỗng '' nếu dự án nằm ngay trong thư mục gốc htdocs.
  * @return string
  */
 function getBaseUrl() {
-    // Lấy đường dẫn của script đang chạy (ví dụ: /Ecom_website/index.php)
+    // Lấy đường dẫn của script đang chạy (ví dụ: /Ecom_PM/index.php)
     $script_name = $_SERVER['SCRIPT_NAME'];
 
-    // Lấy tên thư mục chứa script đó (ví dụ: /Ecom_website)
+    // Lấy tên thư mục chứa script đó (ví dụ: /Ecom_PM)
     $base_path = dirname($script_name);
 
     // Xử lý trường hợp đặc biệt khi dự án nằm ở thư mục gốc của web server (htdocs)
@@ -29,7 +29,7 @@ function getBaseUrl() {
 /**
  * Tạo URL đầy đủ từ một đường dẫn tương đối.
  * @param string $path Đường dẫn con, ví dụ: 'products/show/1'
- * @return string URL hoàn chỉnh, ví dụ: /Ecom_website/products/show/1
+ * @return string URL hoàn chỉnh, ví dụ: /Ecom_PM/products/show/1
  */
 function url($path = '') {
     $base = getBaseUrl();

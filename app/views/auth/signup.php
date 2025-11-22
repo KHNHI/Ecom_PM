@@ -494,7 +494,7 @@
             
             try {
                 // Get base path dynamically
-                const basePath = window.location.pathname.includes('/Ecom_website/') ? '/Ecom_website' : '';
+                const basePath = window.location.pathname.includes('/Ecom_PM/') ? '/Ecom_PM' : '';
                 const signupUrl = basePath + '/auth/signup';
                 
                 const response = await fetch(signupUrl, {

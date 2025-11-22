@@ -149,7 +149,7 @@
                                                             $imageSrc = htmlspecialchars($imagePath);
                                                         } else {
                                                             // Nếu là đường dẫn tương đối, thêm BASE_URL
-                                                            $imageSrc = htmlspecialchars('/Ecom_website/' . ltrim($imagePath, '/'));
+                                                            $imageSrc = htmlspecialchars('/Ecom_PM/' . ltrim($imagePath, '/'));
                                                         }
                                                     } elseif (!empty($product->main_image)) {
                                                         // Fallback: main_image column
@@ -160,7 +160,7 @@
                                                             $imageSrc = htmlspecialchars($imagePath);
                                                         } else {
                                                             // Nếu là đường dẫn tương đối, thêm BASE_URL
-                                                            $imageSrc = htmlspecialchars('/Ecom_website/' . ltrim($imagePath, '/'));
+                                                            $imageSrc = htmlspecialchars('/Ecom_PM/' . ltrim($imagePath, '/'));
                                                         }
                                                     }
                                                     ?>
@@ -263,14 +263,14 @@
                                                 if (preg_match('/^https?:\/\//', $imagePath)) {
                                                     $imageSrc = htmlspecialchars($imagePath);
                                                 } else {
-                                                    $imageSrc = htmlspecialchars('/Ecom_website/' . ltrim($imagePath, '/'));
+                                                    $imageSrc = htmlspecialchars('/Ecom_PM/' . ltrim($imagePath, '/'));
                                                 }
                                             } elseif (!empty($product->main_image)) {
                                                 $imagePath = $product->main_image;
                                                 if (preg_match('/^https?:\/\//', $imagePath)) {
                                                     $imageSrc = htmlspecialchars($imagePath);
                                                 } else {
-                                                    $imageSrc = htmlspecialchars('/Ecom_website/' . ltrim($imagePath, '/'));
+                                                    $imageSrc = htmlspecialchars('/Ecom_PM/' . ltrim($imagePath, '/'));
                                                 }
                                             }
                                             ?>

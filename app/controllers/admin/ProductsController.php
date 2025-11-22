@@ -20,7 +20,7 @@ class ProductsController extends BaseController {
         $this->collectionModel = $this->model('Collection');
                 
         // Set absolute upload path
-        $this->uploadPath = $_SERVER['DOCUMENT_ROOT'] . '/Ecom_website/public/uploads/products/';
+        $this->uploadPath = $_SERVER['DOCUMENT_ROOT'] . '/Ecom_PM/public/uploads/products/';
     }
 
     /**
@@ -473,7 +473,7 @@ class ProductsController extends BaseController {
             }
 
             // Xóa file vật lý
-            $filePath = $_SERVER['DOCUMENT_ROOT'] . '/Ecom_website/' . $image->file_path;
+            $filePath = $_SERVER['DOCUMENT_ROOT'] . '/Ecom_PM/' . $image->file_path;
             if (file_exists($filePath)) {
                 unlink($filePath);
             }

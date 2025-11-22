@@ -172,7 +172,7 @@ $formAction = $isEdit
                                         <div class="existing-image mb-3" id="existingImageContainer">
                                             <h6 class="fw-bold mb-2">Ảnh Hiện Tại</h6>
                                             <div class="position-relative">
-                                                <img src="/Ecom_website/<?= htmlspecialchars($collection->image_path) ?>" 
+                                                <img src="/Ecom_PM/<?= htmlspecialchars($collection->image_path) ?>" 
                                                      class="img-thumbnail w-100" 
                                                      alt="Collection Cover"
                                                      style="max-height: 200px; object-fit: cover;">

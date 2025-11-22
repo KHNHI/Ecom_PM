@@ -33,7 +33,7 @@ let warningTime = sessionTimeout - (30 * 60 * 1000); // Warn 30 minutes before
 setTimeout(function() {
     if (confirm('Phiên đăng nhập sắp hết hạn. Bạn có muốn tiếp tục?')) {
         // Refresh session by making a simple request
-        fetch('/Ecom_website/admin/dashboard', {
+        fetch('/Ecom_PM/admin/dashboard', {
             method: 'HEAD',
             credentials: 'same-origin'
         });

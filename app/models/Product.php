@@ -167,11 +167,11 @@ class Product extends BaseModel {
             
             // Check if it's already a complete relative path that includes directory
             if (strpos($filePath, 'public/uploads/products/') === 0) {
-                return '/Ecom_website/' . $filePath;
+                return '/Ecom_PM/' . $filePath;
             }
             
             // Otherwise, it's just a filename - prepend the full path
-            return '/Ecom_website/public/uploads/products/' . $filePath;
+            return '/Ecom_PM/public/uploads/products/' . $filePath;
         }
         
         return 'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=100&h=100&fit=crop';

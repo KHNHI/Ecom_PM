@@ -116,6 +116,13 @@ class Route {
         // Location API routes
         'api/locations/provinces' => ['LocationController', 'getProvinces'],
         'api/locations/wards' => ['LocationController', 'getWards'],
+
+        // Chat routes
+        'chat/conversation' => ['ChatController', 'getOrCreateConversation'],
+        'chat/send' => ['ChatController', 'sendMessage'],
+        'chat/new-messages' => ['ChatController', 'getNewMessages'],
+        'chat/mark-read' => ['ChatController', 'markMessagesAsRead'],
+        'chat/messages' => ['ChatController', 'getMessages'],
     ];
 
     public function __construct() {

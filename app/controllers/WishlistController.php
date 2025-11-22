@@ -17,7 +17,7 @@ class WishlistController extends BaseController {
      */
     public function index() {
         if (!SessionHelper::isLoggedIn()) {
-            header('Location: /Ecom_website/signin');
+            header('Location: /Ecom_PM/signin');
             exit;
         }
 
@@ -46,7 +46,7 @@ class WishlistController extends BaseController {
         try {
             if (!SessionHelper::isLoggedIn()) {
                 $this->jsonResponse(false, 'Bạn cần đăng nhập để sử dụng tính năng này', [
-                    'redirect' => '/Ecom_website/signin'
+                    'redirect' => '/Ecom_PM/signin'
                 ]);
                 return;
             }
@@ -125,7 +125,7 @@ class WishlistController extends BaseController {
         try {
             if (!SessionHelper::isLoggedIn()) {
                 $this->jsonResponse(false, 'Bạn cần đăng nhập để sử dụng tính năng này', [
-                    'redirect' => '/Ecom_website/signin'
+                    'redirect' => '/Ecom_PM/signin'
                 ]);
                 return;
             }

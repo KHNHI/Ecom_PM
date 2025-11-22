@@ -226,7 +226,7 @@ WHERE user_id = 31;
 ### Test GET /api/notifications/unread
 
 ```bash
-curl -X GET "http://localhost/Ecom_website/api/notifications/unread?limit=10" \
+curl -X GET "http://localhost/Ecom_PM/api/notifications/unread?limit=10" \
   -H "Cookie: PHPSESSID=YOUR_SESSION_ID"
 ```
 
@@ -252,7 +252,7 @@ curl -X GET "http://localhost/Ecom_website/api/notifications/unread?limit=10" \
 ### Test GET /api/notifications/count
 
 ```bash
-curl -X GET "http://localhost/Ecom_website/api/notifications/count" \
+curl -X GET "http://localhost/Ecom_PM/api/notifications/count" \
   -H "Cookie: PHPSESSID=YOUR_SESSION_ID"
 ```
 
@@ -268,7 +268,7 @@ curl -X GET "http://localhost/Ecom_website/api/notifications/count" \
 ### Test POST /api/notifications/mark-read
 
 ```bash
-curl -X POST "http://localhost/Ecom_website/api/notifications/mark-read" \
+curl -X POST "http://localhost/Ecom_PM/api/notifications/mark-read" \
   -H "Content-Type: application/json" \
   -H "Cookie: PHPSESSID=YOUR_SESSION_ID" \
   -d '{"notification_id": 1}'

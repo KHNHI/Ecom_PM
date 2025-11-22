@@ -217,6 +217,48 @@ class AdminRouter {
                     unset($url[0]);
                     break;
                     
+                case 'chat':
+                    $this->controller = 'AdminChatController';
+                    // Check for specific chat actions
+                    if (isset($url[1])) {
+                        switch ($url[1]) {
+                            case 'view':
+                                $this->method = 'viewConversation';
+                                if (isset($url[2])) {
+                                    $this->params = [$url[2]];
+                                }
+                                break;
+                            case 'conversations':
+                                $this->method = 'getConversations';
+                                break;
+                            case 'send':
+                                $this->method = 'sendMessage';
+                                break;
+                            case 'new-messages':
+                                $this->method = 'getNewMessages';
+                                break;
+                            case 'update-status':
+                                $this->method = 'updateStatus';
+                                break;
+                            case 'assign':
+                                $this->method = 'assignToMe';
+                                break;
+                            case 'quick-replies':
+                                $this->method = 'getQuickReplies';
+                                break;
+                            case 'delete':
+                                $this->method = 'deleteConversation';
+                                break;
+                            default:
+                                $this->method = 'index';
+                        }
+                        unset($url[1]);
+                    } else {
+                        $this->method = 'index';
+                    }
+                    unset($url[0]);
+                    break;
+                    
                 default:
                     // Chuyển đổi tên từ URL (vd: 'users') thành tên Class (vd: 'UsersController')
                     $controllerName = ucfirst($url[0]) . 'Controller';

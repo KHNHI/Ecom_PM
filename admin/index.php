@@ -20,7 +20,7 @@ $isLogoutRoute = (strpos($urlPath, '/admin/logout') !== false);
 if (!$isLoginRoute && !$isLogoutRoute) {
     if (!isset($_SESSION['admin_logged_in']) || !$_SESSION['admin_logged_in']) {
         // Redirect về login page
-        header('Location: /Ecom_website/admin/login');
+        header('Location: /Ecom_PM/admin/login');
         exit;
     }
 }

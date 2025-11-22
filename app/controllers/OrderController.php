@@ -298,18 +298,18 @@ class OrderController extends BaseController {
                     
                     // Check if it's already a complete relative path that includes directory
                     if (strpos($filePath, 'public/uploads/products/') === 0) {
-                        return '/Ecom_website/' . $filePath;
+                        return '/Ecom_PM/' . $filePath;
                     }
                     
                     // Otherwise, it's just a filename - prepend the full path
-                    return '/Ecom_website/public/uploads/products/' . $filePath;
+                    return '/Ecom_PM/public/uploads/products/' . $filePath;
                 }
             }
             
-            return '/Ecom_website/public/uploads/products/placeholder.png';
+            return '/Ecom_PM/public/uploads/products/placeholder.png';
         } catch (Exception $e) {
             error_log("Error getting product image for product {$productId}: " . $e->getMessage());
-            return '/Ecom_website/public/uploads/products/placeholder.png';
+            return '/Ecom_PM/public/uploads/products/placeholder.png';
         }
     }
 
@@ -329,7 +329,7 @@ class OrderController extends BaseController {
             // Check if user is logged in
             $userId = $_SESSION['user_id'] ?? null;
             if (!$userId) {
-                header('Location: /Ecom_website/signin');
+                header('Location: /Ecom_PM/signin');
                 exit;
             }
 

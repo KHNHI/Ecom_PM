@@ -10,7 +10,7 @@
 - Một số là đường dẫn tương đối: `public/uploads/products/79/product_79.png`
 - Một số chỉ là tên file: `product_79.png`
 
-Khi code cũ cứ thêm `/Ecom_website/public/uploads/products/` vào tất cả, nó tạo ra URL lỗi.
+Khi code cũ cứ thêm `/Ecom_PM/public/uploads/products/` vào tất cả, nó tạo ra URL lỗi.
 
 ### Giải pháp:
 
@@ -29,11 +29,11 @@ private function getProductImage($productId) {
 
         // Check if it's already a complete relative path that includes directory
         if (strpos($filePath, 'public/uploads/products/') === 0) {
-            return '/Ecom_website/' . $filePath;
+            return '/Ecom_PM/' . $filePath;
         }
 
         // Otherwise, it's just a filename - prepend the full path
-        return '/Ecom_website/public/uploads/products/' . $filePath;
+        return '/Ecom_PM/public/uploads/products/' . $filePath;
     }
 }
 ```
@@ -45,7 +45,7 @@ private function getProductImage($productId) {
 ### Kết quả:
 
 ✅ Product ID 1 (URL external): `https://images.unsplash.com/photo-1603561591411-07134e71a2a9?w=500`
-✅ Product ID 79 (relative path): `/Ecom_website/public/uploads/products/79/product_79_690ec61b57873.png`
+✅ Product ID 79 (relative path): `/Ecom_PM/public/uploads/products/79/product_79_690ec61b57873.png`
 
 ---
 
@@ -90,7 +90,7 @@ function reviewOrder(orderId) {
 async function fetchAndReviewOrder(orderId) {
   try {
     const response = await fetch(
-      "/Ecom_website/api/orders/detail?order_id=" + orderId,
+      "/Ecom_PM/api/orders/detail?order_id=" + orderId,
       {
         method: "GET",
         credentials: "same-origin",

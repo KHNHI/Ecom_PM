@@ -385,3 +385,7 @@
         if (emailLink) emailLink.addEventListener('click', () => showNotification('Đang mở ứng dụng email...'));
     });
 </script>
+
+<!-- Chatbox Widget -->
+<link rel="stylesheet" href="/Ecom_PM/public/assets/css/chatbox.css">
+<script src="/Ecom_PM/public/assets/js/chatbox.js"></script>

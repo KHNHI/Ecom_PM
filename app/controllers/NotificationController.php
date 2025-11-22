@@ -223,7 +223,7 @@ class NotificationController extends BaseController {
         try {
             $userId = $_SESSION['user_id'] ?? null;
             if (!$userId) {
-                header('Location: /Ecom_website/signin');
+                header('Location: /Ecom_PM/signin');
                 exit;
             }
 
@@ -251,13 +251,13 @@ class NotificationController extends BaseController {
                 </style>
             </head>
             <body>
-                <?php require $_SERVER['DOCUMENT_ROOT'] . '/Ecom_website/app/views/customer/components/header.php'; ?>
+                <?php require $_SERVER['DOCUMENT_ROOT'] . '/Ecom_PM/app/views/customer/components/header.php'; ?>
                 
                 <main class="container">
-                    <?php require $_SERVER['DOCUMENT_ROOT'] . '/Ecom_website/app/views/customer/pages/notifications.php'; ?>
+                    <?php require $_SERVER['DOCUMENT_ROOT'] . '/Ecom_PM/app/views/customer/pages/notifications.php'; ?>
                 </main>
                 
-                <?php require $_SERVER['DOCUMENT_ROOT'] . '/Ecom_website/app/views/customer/components/footer.php'; ?>
+                <?php require $_SERVER['DOCUMENT_ROOT'] . '/Ecom_PM/app/views/customer/components/footer.php'; ?>
                 
                 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
             </body>

@@ -138,7 +138,7 @@ CREATE TABLE payments (
 
 ### 1. **GET List User Orders**
 
-**URL:** `/Ecom_website/api/orders/list`
+**URL:** `/Ecom_PM/api/orders/list`
 
 **Method:** GET
 
@@ -179,7 +179,7 @@ Accept: application/json
           "total_price": 2500000,
           "color": "Vàng",
           "size": "6",
-          "product_image": "/Ecom_website/public/uploads/products/ring_1.jpg"
+          "product_image": "/Ecom_PM/public/uploads/products/ring_1.jpg"
         }
       ]
     }
@@ -201,7 +201,7 @@ Accept: application/json
 
 ### 2. **GET Order Detail**
 
-**URL:** `/Ecom_website/api/orders/{order_id}/detail`
+**URL:** `/Ecom_PM/api/orders/{order_id}/detail`
 
 **Method:** GET
 
@@ -215,7 +215,7 @@ Accept: application/json
 
 ### 3. **POST Cancel Order**
 
-**URL:** `/Ecom_website/api/orders/{order_id}/cancel`
+**URL:** `/Ecom_PM/api/orders/{order_id}/cancel`
 
 **Method:** POST
 
@@ -345,7 +345,7 @@ reviewOrder(orderId)
    - Rating (1-5 stars)
    - Title
    - Comment
-5. **Submit** → API call to `/Ecom_website/api/reviews/add`
+5. **Submit** → API call to `/Ecom_PM/api/reviews/add`
 6. **ReviewController validates** → Store in database
 7. **Success** → Show alert, close modal
 
@@ -367,7 +367,7 @@ reviewOrder(orderId)
 
 **Function:** `reviewOrder(orderId)` → Opens modal with review forms
 
-**API Endpoint:** `POST /Ecom_website/api/reviews/add`
+**API Endpoint:** `POST /Ecom_PM/api/reviews/add`
 
 **Review Model:** `app/models/Review.php`
 
@@ -386,7 +386,7 @@ reviewOrder(orderId)
    ↓
 3. loadOrders() called
    ↓
-4. AJAX GET request to /Ecom_website/api/orders/list
+4. AJAX GET request to /Ecom_PM/api/orders/list
    ↓
 5. OrderController::listUserOrders()
    - Get user_id from session
@@ -411,7 +411,7 @@ reviewOrder(orderId)
    ↓
 3. User confirms
    ↓
-4. AJAX POST to /Ecom_website/api/orders/{id}/cancel
+4. AJAX POST to /Ecom_PM/api/orders/{id}/cancel
    ↓
 5. OrderController::cancelOrder($orderId)
    - Verify user owns order
@@ -439,7 +439,7 @@ reviewOrder(orderId)
    ↓
 5. Clicks "Gửi đánh giá"
    ↓
-6. AJAX POST to /Ecom_website/api/reviews/add
+6. AJAX POST to /Ecom_PM/api/reviews/add
    - product_id: ID of product
    - rating: 1-5
    - title: Review title
@@ -474,7 +474,7 @@ The product detail page already has a review section showing:
 
 When customer reviews from order management:
 
-- Review is submitted via same endpoint: `/Ecom_website/api/reviews/add`
+- Review is submitted via same endpoint: `/Ecom_PM/api/reviews/add`
 - Review appears in product detail page automatically
 - Customer can see their review in:
   1. Order management page (history)

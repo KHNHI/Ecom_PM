@@ -20,8 +20,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="/Ecom_website/app/views/admin/assets/css/variables.css">
-    <link rel="stylesheet" href="/Ecom_website/app/views/admin/assets/css/main.css">
+    <link rel="stylesheet" href="/Ecom_PM/app/views/admin/assets/css/variables.css">
+    <link rel="stylesheet" href="/Ecom_PM/app/views/admin/assets/css/main.css">
     
     <!-- Page-specific CSS -->
     <?php 
@@ -29,7 +29,7 @@
     $cssFile = __DIR__ . "/../assets/css/{$currentPage}.css";
     if (file_exists($cssFile)): 
     ?>
-        <link rel="stylesheet" href="/Ecom_website/app/views/admin/assets/css/<?= $currentPage ?>.css">
+        <link rel="stylesheet" href="/Ecom_PM/app/views/admin/assets/css/<?= $currentPage ?>.css">
     <?php endif; ?>
 </head>
 <body>

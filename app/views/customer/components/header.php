@@ -1,5 +1,5 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'] . '/Ecom_website/helpers/session_helper.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/Ecom_PM/helpers/session_helper.php';
 $isLoggedIn = SessionHelper::isLoggedIn();
 $user = SessionHelper::getUser();
 ?>
@@ -184,7 +184,7 @@ document.getElementById('searchForm')?.addEventListener('submit', function(e) {
     const searchTerm = document.getElementById('searchInput').value.trim();
     if (searchTerm) {
         // Redirect to products page with search parameter
-        window.location.href = '/Ecom_website/products?search=' + encodeURIComponent(searchTerm);
+        window.location.href = '/Ecom_PM/products?search=' + encodeURIComponent(searchTerm);
     }
 });
 
@@ -193,7 +193,7 @@ document.querySelector('#searchForm button')?.addEventListener('click', function
     e.preventDefault();
     const searchTerm = document.getElementById('searchInput').value.trim();
     if (searchTerm) {
-        window.location.href = '/Ecom_website/products?search=' + encodeURIComponent(searchTerm);
+        window.location.href = '/Ecom_PM/products?search=' + encodeURIComponent(searchTerm);
     }
 });
 

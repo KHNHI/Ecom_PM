@@ -151,7 +151,7 @@ Nếu vẫn gặp vấn đề:
 
 ```javascript
 // Mở browser console và chạy:
-fetch("/Ecom_website/api/notifications/mark-read", {
+fetch("/Ecom_PM/api/notifications/mark-read", {
   method: "POST",
   headers: { "Content-Type": "application/x-www-form-urlencoded" },
   body: "notification_id=4",

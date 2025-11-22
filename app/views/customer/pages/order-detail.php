@@ -304,8 +304,8 @@
         <!-- Breadcrumb -->
         <nav aria-label="breadcrumb" class="mb-4">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="/Ecom_website/">Trang chủ</a></li>
-                <li class="breadcrumb-item"><a href="/Ecom_website/profile">Thông tin cá nhân</a></li>
+                <li class="breadcrumb-item"><a href="/Ecom_PM/">Trang chủ</a></li>
+                <li class="breadcrumb-item"><a href="/Ecom_PM/profile">Thông tin cá nhân</a></li>
                 <li class="breadcrumb-item active">Chi tiết đơn hàng</li>
             </ol>
         </nav>
@@ -355,7 +355,7 @@
 
             <!-- Action Buttons -->
             <div class="action-buttons">
-                <a href="/Ecom_website/profile?tab=orders" class="btn-back">
+                <a href="/Ecom_PM/profile?tab=orders" class="btn-back">
                     <i class="fas fa-arrow-left"></i> Quay lại
                 </a>
                 <?php if ($order->order_status === 'pending'): ?>
@@ -387,7 +387,7 @@
                                 
                                 <div class="item-details">
                                     <div class="item-name">
-                                        <a href="/Ecom_website/product/<?php echo $item['product_id']; ?>" target="_blank">
+                                        <a href="/Ecom_PM/product/<?php echo $item['product_id']; ?>" target="_blank">
                                             <?php echo htmlspecialchars($item['product_name']); ?>
                                         </a>
                                     </div>
@@ -523,7 +523,7 @@
                 }
             });
 
-            fetch(`/Ecom_website/api/orders/${orderId}/cancel`, {
+            fetch(`/Ecom_PM/api/orders/${orderId}/cancel`, {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
@@ -563,7 +563,7 @@
 
         function reviewOrder(orderId) {
             // Redirect to profile with order ID for review
-            window.location.href = `/Ecom_website/profile?review_order=${orderId}`;
+            window.location.href = `/Ecom_PM/profile?review_order=${orderId}`;
         }
     </script>
 </body>

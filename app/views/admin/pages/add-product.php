@@ -435,7 +435,7 @@ $formAction = $isEdit
                                                 <?php foreach ($product->images as $image): ?>
                                                     <div class="col-6 mb-2" data-image-id="<?= $image->image_id ?>">
                                                         <div class="position-relative">
-                                                            <img src="/Ecom_website/<?= htmlspecialchars($image->file_path) ?>" 
+                                                            <img src="/Ecom_PM/<?= htmlspecialchars($image->file_path) ?>" 
                                                                  class="img-thumbnail" 
                                                                  alt="Product Image"
                                                                  style="width: 100%; height: 120px; object-fit: cover;">
@@ -692,7 +692,7 @@ $formAction = $isEdit
         });
     </script>
     <!-- Add Product JS -->
-    <script src="/Ecom_website/app/views/admin/assets/js/add-product.js"></script>
+    <script src="/Ecom_PM/app/views/admin/assets/js/add-product.js"></script>
 
 </body>
 </html>

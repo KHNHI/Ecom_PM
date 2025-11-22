@@ -871,7 +871,7 @@
             const alertContainer = document.getElementById('alertContainer');
             
             try {
-                const response = await fetch('/Ecom_website/profile/update', {
+                const response = await fetch('/Ecom_PM/profile/update', {
                     method: 'POST',
                     body: formData
                 });
@@ -910,7 +910,7 @@
             }
             
             try {
-                const response = await fetch('/Ecom_website/profile/change-password', {
+                const response = await fetch('/Ecom_PM/profile/change-password', {
                     method: 'POST',
                     body: formData
                 });
@@ -937,7 +937,7 @@
             formData.append('avatar', file);
             
             try {
-                const response = await fetch('/Ecom_website/profile/upload-avatar', {
+                const response = await fetch('/Ecom_PM/profile/upload-avatar', {
                     method: 'POST',
                     body: formData
                 });
@@ -977,7 +977,7 @@
             const container = document.getElementById('wishlistContainer');
             
             try {
-                const response = await fetch('/Ecom_website/wishlist', {
+                const response = await fetch('/Ecom_PM/wishlist', {
                     method: 'GET',
                     credentials: 'same-origin',  // Include cookies/session
                     headers: {
@@ -1032,7 +1032,7 @@
                     items.forEach(item => {
                         const name = item.querySelector('.product-name')?.textContent?.trim() || 'Sản phẩm';
                         const price = item.querySelector('.price')?.textContent?.trim() || '0₫';
-                        const img = item.querySelector('img')?.src || '/Ecom_website/public/assets/images/placeholder.svg';
+                        const img = item.querySelector('img')?.src || '/Ecom_PM/public/assets/images/placeholder.svg';
                         const productId = item.dataset.productId || '';
                         const href = item.querySelector('a')?.href || '#';
                         
@@ -1083,7 +1083,7 @@
             
             try {
                 console.log('Loading wishlist via API...');
-                const response = await fetch('/Ecom_website/api/wishlist/status', {
+                const response = await fetch('/Ecom_PM/api/wishlist/status', {
                     credentials: 'same-origin',
                     headers: {
                         'Content-Type': 'application/json',
@@ -1106,7 +1106,7 @@
                             <i class="fas fa-heart fa-3x text-primary mb-3"></i>
                             <h6>Bạn có ${data.count} sản phẩm yêu thích</h6>
                             <p class="text-muted">Đang tải chi tiết sản phẩm...</p>
-                            <a href="/Ecom_website/wishlist" class="btn btn-primary">
+                            <a href="/Ecom_PM/wishlist" class="btn btn-primary">
                                 <i class="fas fa-eye me-2"></i>
                                 Xem danh sách đầy đủ
                             </a>
@@ -1119,7 +1119,7 @@
                             <i class="fas fa-heart fa-3x text-muted mb-3"></i>
                             <h6 class="text-muted">Danh sách yêu thích trống</h6>
                             <p class="text-muted">Hãy thêm những sản phẩm bạn yêu thích để xem chúng tại đây</p>
-                            <a href="/Ecom_website/products" class="btn btn-primary">
+                            <a href="/Ecom_PM/products" class="btn btn-primary">
                                 <i class="fas fa-shopping-cart me-2"></i>
                                 Khám phá sản phẩm
                             </a>
@@ -1137,7 +1137,7 @@
                             <i class="fas fa-redo me-2"></i>
                             Thử lại
                         </button>
-                        <a href="/Ecom_website/auth/signin" class="btn btn-outline-secondary ms-2">
+                        <a href="/Ecom_PM/auth/signin" class="btn btn-outline-secondary ms-2">
                             <i class="fas fa-sign-in-alt me-2"></i>
                             Đăng nhập lại
                         </a>
@@ -1149,7 +1149,7 @@
         // Remove from wishlist function
         async function removeFromWishlist(productId) {
             try {
-                const response = await fetch('/Ecom_website/wishlist/remove', {
+                const response = await fetch('/Ecom_PM/wishlist/remove', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded',
@@ -1183,7 +1183,7 @@
         // Load provinces
         async function loadProvinces() {
             try {
-                const response = await fetch('/Ecom_website/api/locations/provinces');
+                const response = await fetch('/Ecom_PM/api/locations/provinces');
                 const result = await response.json();
                 
                 if (result.success && result.data) {
@@ -1240,7 +1240,7 @@
         // Load wards directly by province code (modern structure)
         async function loadWardsByProvince(provinceCode) {
             try {
-                const response = await fetch(`/Ecom_website/api/locations/wards?province_code=${provinceCode}`);
+                const response = await fetch(`/Ecom_PM/api/locations/wards?province_code=${provinceCode}`);
                 const result = await response.json();
                 
                 if (result.success && result.data) {
@@ -1297,7 +1297,7 @@
             const container = document.getElementById('ordersContainer');
             
             try {
-                const response = await fetch('/Ecom_website/api/orders/list', {
+                const response = await fetch('/Ecom_PM/api/orders/list', {
                     method: 'GET',
                     credentials: 'same-origin',
                     headers: {
@@ -1392,7 +1392,7 @@
                     <i class="fas fa-shopping-bag"></i>
                     <h6>Bạn chưa có đơn hàng nào</h6>
                     <p>Hãy bắt đầu mua sắm để xem đơn hàng tại đây</p>
-                    <a href="/Ecom_website/products" class="btn btn-primary">
+                    <a href="/Ecom_PM/products" class="btn btn-primary">
                         <i class="fas fa-shopping-cart me-2"></i>
                         Mua sắm ngay
                     </a>
@@ -1408,7 +1408,7 @@
             
             return items.map(item => `
                 <div class="order-item">
-                    <img src="${item.product_image || '/Ecom_website/public/uploads/products/placeholder.png'}" 
+                    <img src="${item.product_image || '/Ecom_PM/public/uploads/products/placeholder.png'}" 
                          alt="${item.product_name}" class="order-item-image">
                     <div class="order-item-details">
                         <div class="order-item-name">${item.product_name}</div>
@@ -1481,7 +1481,7 @@
         // View order detail
         function viewOrderDetail(orderId) {
             // Redirect to order detail page
-            window.location.href = `/Ecom_website/order-detail?id=${orderId}`;
+            window.location.href = `/Ecom_PM/order-detail?id=${orderId}`;
         }
         
         // Cancel order
@@ -1491,7 +1491,7 @@
             }
             
             try {
-                const response = await fetch(`/Ecom_website/api/orders/${orderId}/cancel`, {
+                const response = await fetch(`/Ecom_PM/api/orders/${orderId}/cancel`, {
                     method: 'POST',
                     credentials: 'same-origin',
                     headers: {
@@ -1538,7 +1538,7 @@
         // Fetch a specific order and show review modal
         async function fetchAndReviewOrder(orderId) {
             try {
-                const response = await fetch('/Ecom_website/api/orders/detail?order_id=' + orderId, {
+                const response = await fetch('/Ecom_PM/api/orders/detail?order_id=' + orderId, {
                     method: 'GET',
                     credentials: 'same-origin'
                 });
@@ -1606,7 +1606,7 @@
             // Create review forms for each item
             items.forEach((item, index) => {
                 // Ensure product_image is set
-                const productImage = item.product_image || '/Ecom_website/public/uploads/products/placeholder.png';
+                const productImage = item.product_image || '/Ecom_PM/public/uploads/products/placeholder.png';
                 
                 modalHtml += `
                     <div class="tab-pane fade ${index === 0 ? 'show active' : ''}" id="review-item-${index}" role="tabpanel">
@@ -1615,7 +1615,7 @@
                                 <div class="d-flex align-items-center gap-3 mb-3">
                                     <img src="${productImage}" alt="${item.product_name}" 
                                          style="width: 60px; height: 60px; object-fit: cover; border-radius: 5px;"
-                                         onerror="this.src='/Ecom_website/public/uploads/products/placeholder.png'">
+                                         onerror="this.src='/Ecom_PM/public/uploads/products/placeholder.png'">
                                     <div>
                                         <h6 class="mb-0">${item.product_name}</h6>
                                         <small class="text-muted">SL: ${item.quantity}</small>
@@ -1721,7 +1721,7 @@
                     
                     // Submit review
                     try {
-                        const response = await fetch('/Ecom_website/api/reviews/add', {
+                        const response = await fetch('/Ecom_PM/api/reviews/add', {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/x-www-form-urlencoded',
