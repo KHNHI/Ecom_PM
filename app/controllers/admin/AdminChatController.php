@@ -154,7 +154,7 @@ class AdminChatController extends BaseController {
             $afterId = $_GET['after_id'] ?? 0;
             
             if (!$conversationId) {
-                return $this->jsonResponse(['success' => false, 'message' => 'Thiếu conversation_id'], 400);
+                return $this->jsonResponse(false, 'Thiếu conversation_id');
             }
             
             $messages = $this->messageModel->getNewMessages($conversationId, $afterId);
@@ -165,13 +165,10 @@ class AdminChatController extends BaseController {
                 $this->conversationModel->resetUnreadCount($conversationId, 'admin');
             }
             
-            return $this->jsonResponse([
-                'success' => true,
-                'messages' => $messages
-            ]);
+            return $this->jsonResponse(true, 'Success', $messages);
         } catch (Exception $e) {
             error_log("Error in getNewMessages: " . $e->getMessage());
-            return $this->jsonResponse(['success' => false, 'message' => 'Lỗi server'], 500);
+            return $this->jsonResponse(false, 'Lỗi server');
         }
     }
     
@@ -237,17 +234,18 @@ class AdminChatController extends BaseController {
         try {
             $db = Database::getInstance();
             $sql = "SELECT * FROM chat_quick_replies WHERE is_active = 1 ORDER BY sort_order, title";
-            $stmt = $db->prepare($sql);
-            $stmt->execute();
-            $replies = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $db->query($sql);
+            $replies = $db->resultSet();
             
-            return $this->jsonResponse([
-                'success' => true,
-                'replies' => $replies
-            ]);
+            // Convert objects to arrays
+            $repliesArray = array_map(function($obj) { 
+                return (array) $obj; 
+            }, $replies ?: []);
+            
+            return $this->jsonResponse(true, 'Success', $repliesArray);
         } catch (Exception $e) {
             error_log("Error in getQuickReplies: " . $e->getMessage());
-            return $this->jsonResponse(['success' => false, 'message' => 'Lỗi server'], 500);
+            return $this->jsonResponse(false, 'Lỗi server');
         }
     }
     

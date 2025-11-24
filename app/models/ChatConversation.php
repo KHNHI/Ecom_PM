@@ -10,21 +10,50 @@ class ChatConversation extends BaseModel {
      */
     public function findOrCreateForUser($userId, $sessionId = null) {
         try {
-            // Tìm conversation đang mở của user
-            $sql = "SELECT * FROM {$this->table} 
-                    WHERE (user_id = :user_id OR session_id = :session_id)
-                    AND status IN ('active', 'pending')
-                    ORDER BY last_message_at DESC 
-                    LIMIT 1";
-            
-            $this->db->query($sql);
-            $this->db->bind(':user_id', $userId);
-            $this->db->bind(':session_id', $sessionId);
+            // Nếu user đã đăng nhập, tìm theo user_id hoặc session_id
+            if ($userId) {
+                $sql = "SELECT * FROM {$this->table} 
+                        WHERE (user_id = :user_id OR session_id = :session_id)
+                        AND status IN ('active', 'pending')
+                        ORDER BY last_message_at DESC 
+                        LIMIT 1";
+                
+                $this->db->query($sql);
+                $this->db->bind(':user_id', $userId);
+                $this->db->bind(':session_id', $sessionId);
+            } else {
+                // Nếu là guest (chưa đăng nhập), CHỈ tìm conversation không có user_id
+                $sql = "SELECT * FROM {$this->table} 
+                        WHERE session_id = :session_id
+                        AND user_id IS NULL
+                        AND status IN ('active', 'pending')
+                        ORDER BY last_message_at DESC 
+                        LIMIT 1";
+                
+                $this->db->query($sql);
+                $this->db->bind(':session_id', $sessionId);
+            }
             
             $conversation = $this->db->single();
             
             if ($conversation) {
-                return (array) $conversation;
+                $conv = (array) $conversation;
+                
+                // Nếu user đã đăng nhập nhưng conversation chưa có user_id, cập nhật
+                if ($userId && !$conv['user_id']) {
+                    $updateSql = "UPDATE {$this->table} 
+                                 SET user_id = :user_id 
+                                 WHERE conversation_id = :conversation_id";
+                    $this->db->query($updateSql);
+                    $this->db->bind(':user_id', $userId);
+                    $this->db->bind(':conversation_id', $conv['conversation_id']);
+                    $this->db->execute();
+                    
+                    // Cập nhật lại conversation object
+                    $conv['user_id'] = $userId;
+                }
+                
+                return $conv;
             }
             
             // Tạo conversation mới nếu chưa có

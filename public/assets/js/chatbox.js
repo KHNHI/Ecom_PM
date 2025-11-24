@@ -19,6 +19,7 @@ class ChatboxWidget {
     this.render();
     this.attachEventListeners();
     this.loadConversation();
+    this.setupPageUnloadHandler();
   }
 
   render() {
@@ -380,6 +381,45 @@ class ChatboxWidget {
     const div = document.createElement("div");
     div.textContent = text;
     return div.innerHTML.replace(/\n/g, "<br>");
+  }
+
+  setupPageUnloadHandler() {
+    // Lắng nghe sự kiện trước khi thoát trang
+    window.addEventListener("beforeunload", () => {
+      // Chỉ xóa nếu chưa đăng nhập (không có user_id trong session)
+      // Kiểm tra bằng cách gọi API với sendBeacon để đảm bảo request được gửi
+      if (this.conversationId) {
+        this.clearGuestConversation();
+      }
+    });
+  }
+
+  clearGuestConversation() {
+    // Sử dụng sendBeacon để đảm bảo request được gửi ngay cả khi trang đang đóng
+    const data = JSON.stringify({
+      conversation_id: this.conversationId,
+    });
+
+    // Thử dùng sendBeacon trước (tốt hơn cho beforeunload)
+    const blob = new Blob([data], { type: "application/json" });
+    const sent = navigator.sendBeacon(
+      `${this.basePath}/chat/clear-guest`,
+      blob
+    );
+
+    // Nếu sendBeacon không được hỗ trợ, dùng fetch với keepalive
+    if (!sent) {
+      fetch(`${this.basePath}/chat/clear-guest`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: data,
+        keepalive: true,
+      }).catch((err) =>
+        console.error("Error clearing guest conversation:", err)
+      );
+    }
   }
 
   destroy() {

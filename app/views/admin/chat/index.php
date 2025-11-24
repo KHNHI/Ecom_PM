@@ -16,18 +16,15 @@
     <link rel="stylesheet" href="/Ecom_PM/app/views/admin/assets/css/main.css">
     
     <style>
-        body {
-            margin: 0;
-            padding: 0;
-        }
-        
+        /* Chat page specific styles */
         .chat-admin-container {
             display: flex;
             height: calc(100vh - 200px);
+            width: 100%;
             gap: 0;
-            background: #f8f9fa;
-            border-radius: 8px;
+            background: white;
             overflow: hidden;
+            border-radius: 8px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
         

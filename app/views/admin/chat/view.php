@@ -16,16 +16,16 @@
     <link rel="stylesheet" href="/Ecom_PM/app/views/admin/assets/css/main.css">
     
     <style>
-        body {
-            margin: 0;
-            padding: 0;
-        }
-        
+        /* Chat page specific styles */
         .chat-admin-container {
             display: flex;
-            height: calc(100vh - 120px);
+            height: calc(100vh - 200px);
+            width: 100%;
             gap: 0;
-            background: #f8f9fa;
+            background: white;
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
         
         .chat-sidebar {
@@ -350,6 +350,17 @@
             opacity: 0.5;
             cursor: not-allowed;
         }
+        
+        /* Styling for customer names */
+        .message-sender.customer-name {
+            color: #667eea;
+            font-weight: 600;
+            font-size: 13px;
+        }
+        
+        .chat-message.customer .message-sender.customer-name {
+            text-align: right;
+        }
     </style>
 </head>
 <body>
@@ -414,7 +425,9 @@
                 <?php foreach ($messages as $msg): ?>
                     <div class="chat-message <?= htmlspecialchars($msg['sender_type']) ?>">
                         <div class="message-bubble">
-                            <?php if ($msg['sender_type'] !== 'customer'): ?>
+                            <?php if ($msg['sender_type'] === 'customer'): ?>
+                                <div class="message-sender customer-name"><?= htmlspecialchars($msg['sender_name'] ?? 'Khách') ?></div>
+                            <?php else: ?>
                                 <div class="message-sender"><?= htmlspecialchars($msg['sender_name'] ?? 'Admin') ?></div>
                             <?php endif; ?>
                             <div class="message-text"><?= nl2br(htmlspecialchars($msg['message'])) ?></div>
@@ -576,7 +589,7 @@
             div.className = `chat-message ${msg.sender_type}`;
             div.innerHTML = `
                 <div class="message-bubble">
-                    ${msg.sender_type !== 'customer' ? `<div class="message-sender">${msg.sender_name || 'Admin'}</div>` : ''}
+                    ${msg.sender_type === 'customer' ? `<div class="message-sender customer-name">${msg.sender_name || 'Khách'}</div>` : `<div class="message-sender">${msg.sender_name || 'Admin'}</div>`}
                     <div class="message-text">${msg.message.replace(/\n/g, '<br>')}</div>
                     <div class="message-time">${new Date().toLocaleTimeString('vi-VN')}</div>
                 </div>
@@ -612,20 +625,98 @@
         
         // Check for new messages
         async function checkNewMessages() {
+            console.log('🔍 Checking messages... conversation:', conversationId, 'lastId:', lastMessageId);
+            
             try {
-                const response = await fetch(`/Ecom_PM/admin/index.php?url=chat/new-messages&conversation_id=${conversationId}&after_id=${lastMessageId}`);
+                const url = `/Ecom_PM/admin/index.php?url=chat/new-messages&conversation_id=${conversationId}&after_id=${lastMessageId}`;
+                console.log('📡 Fetching:', url);
+                
+                const response = await fetch(url);
                 const result = await response.json();
                 
+                console.log('📥 Response:', result);
+                
                 if (result.success && result.data && result.data.length > 0) {
+                    console.log('✅ Found', result.data.length, 'new messages');
+                    
+                    let hasNewCustomerMessage = false;
+                    
                     result.data.forEach(msg => {
+                        console.log('➕ Adding message:', msg.message_id, msg.message);
                         addMessage(msg);
                         lastMessageId = msg.message_id;
+                        
+                        // Kiểm tra nếu có tin nhắn mới từ customer
+                        if (msg.sender_type === 'customer') {
+                            hasNewCustomerMessage = true;
+                        }
                     });
+                    
+                    // Phát âm thanh thông báo nếu có tin nhắn mới từ customer
+                    if (hasNewCustomerMessage) {
+                        console.log('🔔 Playing notification...');
+                        playNotificationSound();
+                        showDesktopNotification('Tin nhắn mới', 'Bạn có tin nhắn mới từ khách hàng');
+                    }
+                    
                     // Reload conversations to update unread count
                     loadConversations(currentFilter);
+                } else {
+                    console.log('ℹ️ No new messages');
                 }
             } catch (error) {
-                console.error('Error checking messages:', error);
+                console.error('❌ Error checking messages:', error);
+            }
+        }
+        
+        // Phát âm thanh thông báo
+        function playNotificationSound() {
+            try {
+                // Thử phát file audio trước (rõ hơn)
+                const audio = new Audio('/Ecom_PM/public/assets/sounds/notification.mp3');
+                audio.volume = 0.5;
+                audio.play().catch(err => {
+                    console.log('Audio file not found, using beep fallback');
+                    // Fallback: Tạo âm thanh beep đơn giản
+                    playBeepSound();
+                });
+            } catch (error) {
+                console.log('Could not play notification sound:', error);
+                playBeepSound();
+            }
+        }
+        
+        // Fallback beep sound
+        function playBeepSound() {
+            try {
+                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+                
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+                
+                oscillator.frequency.value = 800;
+                oscillator.type = 'sine';
+                
+                gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5);
+                
+                oscillator.start(audioContext.currentTime);
+                oscillator.stop(audioContext.currentTime + 0.5);
+            } catch (error) {
+                console.log('Beep sound failed:', error);
+            }
+        }
+        
+        // Hiển thị thông báo desktop
+        function showDesktopNotification(title, body) {
+            if ('Notification' in window && Notification.permission === 'granted') {
+                new Notification(title, {
+                    body: body,
+                    icon: '/Ecom_PM/public/assets/images/logo.png',
+                    badge: '/Ecom_PM/public/assets/images/logo.png'
+                });
             }
         }
         
@@ -687,11 +778,23 @@
         loadQuickReplies();
         document.getElementById('messages-container').scrollTop = document.getElementById('messages-container').scrollHeight;
         
-        // Poll for new messages every 3 seconds
-        pollInterval = setInterval(checkNewMessages, 3000);
+        // Yêu cầu quyền thông báo
+        if ('Notification' in window && Notification.permission === 'default') {
+            Notification.requestPermission();
+        }
+        
+        // Poll for new messages every 2 seconds (nhanh hơn để real-time)
+        pollInterval = setInterval(checkNewMessages, 2000);
         
         // Reload conversations every 10 seconds
         setInterval(() => loadConversations(currentFilter), 10000);
+        
+        // Cleanup khi thoát trang
+        window.addEventListener('beforeunload', () => {
+            if (pollInterval) {
+                clearInterval(pollInterval);
+            }
+        });
     </script>
     
     <!-- Bootstrap JS -->

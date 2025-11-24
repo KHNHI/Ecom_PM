@@ -123,6 +123,7 @@ class Route {
         'chat/new-messages' => ['ChatController', 'getNewMessages'],
         'chat/mark-read' => ['ChatController', 'markMessagesAsRead'],
         'chat/messages' => ['ChatController', 'getMessages'],
+        'chat/clear-guest' => ['ChatController', 'clearGuestConversation'],
     ];
 
     public function __construct() {

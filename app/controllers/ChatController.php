@@ -63,7 +63,11 @@ class ChatController extends BaseController {
             
             if ($userId) {
                 $user = $this->userModel->getById($userId);
-                $senderName = $user['name'] ?? 'Khách';
+                if ($user) {
+                    // Convert object to array if needed
+                    $user = is_object($user) ? (array) $user : $user;
+                    $senderName = $user['name'] ?? 'Khách';
+                }
             }
             
             $messageData = [
@@ -175,6 +179,49 @@ class ChatController extends BaseController {
             ]);
         } catch (Exception $e) {
             error_log("Error in getMessages: " . $e->getMessage());
+            $this->jsonResponse(false, 'Lỗi server');
+        }
+    }
+    
+    /**
+     * Xóa conversation của khách (guest) khi thoát trang
+     */
+    public function clearGuestConversation() {
+        try {
+            $data = json_decode(file_get_contents('php://input'), true);
+            $conversationId = $data['conversation_id'] ?? null;
+            
+            if (!$conversationId) {
+                $this->jsonResponse(false, 'Thiếu conversation_id');
+                return;
+            }
+            
+            // Chỉ xóa nếu user chưa đăng nhập
+            $userId = $_SESSION['user_id'] ?? null;
+            
+            if (!$userId) {
+                // Lấy thông tin conversation để kiểm tra
+                $conversation = $this->conversationModel->getById($conversationId);
+                
+                if ($conversation) {
+                    $conv = is_object($conversation) ? (array) $conversation : $conversation;
+                    
+                    // Chỉ xóa nếu conversation không có user_id (là guest)
+                    if (empty($conv['user_id'])) {
+                        $deleted = $this->conversationModel->deleteConversation($conversationId);
+                        
+                        if ($deleted) {
+                            $this->jsonResponse(true, 'Đã xóa conversation');
+                            return;
+                        }
+                    }
+                }
+            }
+            
+            // Nếu user đã đăng nhập hoặc conversation có user_id, không xóa
+            $this->jsonResponse(true, 'Giữ lại conversation');
+        } catch (Exception $e) {
+            error_log("Error in clearGuestConversation: " . $e->getMessage());
             $this->jsonResponse(false, 'Lỗi server');
         }
     }
